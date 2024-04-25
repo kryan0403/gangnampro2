@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<header class="header" th:fragment="header">
+	<div>
+		<input type="button" onclick = "location.href = 'login'" value="로그인">
+		<input type="button" onclick = "location.href = 'Register'" value="회원가입">
+		<input type="button" onclick = "location.href = 'logout'" value="로그아웃">
+		<input type="button" onclick = "location.href = 'MyPage'" value="마이페이지">
+	</div>
+	<div>
+		<h1><a href="/mainpage"><img src="image/airplane.png" alt="로고" style="weight: 100px; height:100px;"></a></h1>
+	</div>
+	<div class="topMenu" >
+		<ul class="menu">
+			<li class="li"><a class="menuLink" href="noticelist">공지사항</a></li>
+			<li class="li"><a class="menuLink" href="ctlist">강의리스트</a></li>
+			<li class="li"><a class="menuLink" href="boardList">게시판</a></li>
+		</ul>
+	</div>
+</header>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>main page</title>
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#slider-div').slick({
+		slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
+		vertical : false,		// 세로 방향 슬라이드 옵션
+		centerMode: true,
+		centerPadding: '70px',
+		infinite : true, 	//무한 반복 옵션	 
+		slidesToShow : 4,		// 한 화면에 보여질 컨텐츠 개수
+		slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
+		speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+		arrows : true, 		// 옆으로 이동하는 화살표 표시 여부
+		autoplay : true,			// 자동 스크롤 사용 여부
+		autoplaySpeed : 10000, 		// 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+		pauseOnHover : true,		// 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
+		prevArrow : "<button type='button' class='slick-prev'>Previous</button>",		// 이전 화살표 모양 설정
+		nextArrow : "<button type='button' class='slick-next'>Next</button>",		// 다음 화살표 모양 설정
+		draggable : true, 	//드래그 가능 여부 
+		
+		responsive: [ // 반응형 웹 구현 옵션
+			{  
+				breakpoint: 960, //화면 사이즈 960px
+				settings: {
+					//위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+					slidesToShow:3 
+				} 
+			},
+			{ 
+				breakpoint: 768, //화면 사이즈 768px
+				settings: {	
+					//위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+					slidesToShow:2 
+				} 
+			}
+		]
+	});
+})
+
+$(document).ready(function() {
+	MainboardList();
+});
+
+function MainboardList(){
+	$.ajax({
+		type : "GET",
+		url : "/MainboardList",
+		success : function(result){
+			content = "<table class='noticetable'><tr><th>공지사항</th></tr>";
+			$.each(result.nblist,function(index,item){
+				content += "<tr><td><a class='a' href=''>"+item.nb_title+"</td>";
+				content += "<td>"+item.nb_date+"</td></tr>";
+			});
+			content += "</table>";
+			
+			$("#MainboardList").html(content);
+		}
+	});
+}
+function LiveList(){
+	$.ajax({
+		type : "GET",
+		url : "/LiveList",
+		success : function(result){
+			$.each(result.livelist,function(index,item){
+				content = "<div><a href=''><image src="+item.camp_image+" style='width:200px; height:200px;'/></a>"+item.nb_title+"</div>";
+			});
+			
+			$("#LiveList").html(content);
+		}
+	});
+}
+</script>
+</head>
+<body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+	<div style="padding:15px 25px; background-color: skyblue;" >
+		<div id="slider-div">
+	 	 	<div>
+	 	 		1
+	 	 	</div>
+		</div>
+	</div>
+	<div class="container">
+		<div id="MainboardList" class="MainboardList"></div>
+		<div class="ran">
+		
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+</body>
+</html>
