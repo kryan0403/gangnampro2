@@ -19,10 +19,10 @@ public class Noticeboard {
 	@Id
 	@Column(name="nb_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int nbNo;
-	@Column(name="nb_title", length = 600, nullable = false)
+	private Long nbNo;
+	@Column(name="nb_title")
 	private String nbTitle;
-	@Column(name="nb_content", length = 8000, nullable = false)
+	@Column(name="nb_content")
 	private String nbContent;
 	
 	@CreationTimestamp

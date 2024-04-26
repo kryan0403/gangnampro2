@@ -20,17 +20,17 @@ import lombok.Data;
 public class Member {
 	
 	@Id
-	@Column(name="mem_id", length = 100)
+	@Column(name="mem_id")
 	private String memId;
-	@Column(name="mem_pw", length = 60, nullable = false)
+	@Column(name="mem_pw")
 	private String memPw;
-	@Column(name="mem_nick", length = 100, nullable = false, unique=true)
-	private String memNick;
-	@Column(name="mem_name", length = 50, nullable = false)
+	@Column(name="mem_nickname")
+	private String memNickname;
+	@Column(name="mem_name")
 	private String memName;
-	@Column(name="mem_birth", length = 6, nullable = false)
+	@Column(name="mem_birth")
 	private String memBirth;
-	@Column(name="mem_tel", length = 15, nullable = false)
+	@Column(name="mem_tel")
 	private String memTel;
 	@ColumnDefault("'y'")
 	@Column(name="mem_active")
@@ -45,7 +45,7 @@ public class Member {
 	private Timestamp memDel;
 
 	// Role 로 대체 가능?
-	@Column(name="mem_type", length = 1)
+	@Column(name="mem_type")
 	private String memType;
 	
 }
