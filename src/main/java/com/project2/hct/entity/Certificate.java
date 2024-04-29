@@ -15,7 +15,7 @@ public class Certificate {
 	@Id
 	@Column(name="cert_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int certNo;
+	private Long certNo;
 	// 자격증 소지자 id - FK
 	@Column(name="cert_id", length = 100, nullable = false)
 	private String certId;
