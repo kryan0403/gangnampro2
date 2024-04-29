@@ -12,7 +12,7 @@ public class TestController {
 	}
 	
 	@GetMapping("/main")
-	public String mainP() {
+	public String mainqwe() {
 		return "main";
 	}
 
