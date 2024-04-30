@@ -34,13 +34,14 @@ function back(){
 </div>
 	<div class="container" align="center">
 		<h2 class="text-primary">강좌 작성</h2>
-		<form action="/healthclass/insert" method="post" enctype="multipart/form-data">
+		<form action="/healthclass/insert" method="post" enctype="multipart/form-data"
+			onsubmit="return checkTypeDay()">
 			<table class="table table-striped">	
 				<tr>
 					<td>강좌타입</td>
 					<td>
-					<select class="box" name="cl_type">
-						<option value="">선택</option>
+					<select class="box" name="clType" id="clType">
+						<option value="" selected disabled hidden>선택</option>
   						<option value="헬스">헬스</option>
   						<option value="재활">재활</option>
   						<option value="필라테스">필라테스</option>
@@ -51,18 +52,17 @@ function back(){
 				</tr>
 				<tr>
 					<td>강좌명</td>
-					<td><input type="text" name="cl_name" required="required" style="width: 900px; height: 25px;"></td>
+					<td><input type="text" name="clName" required="required" style="width: 900px; height: 25px;"></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea rows="5" cols="30" name="cl_intro" required="required" style="width: 900px; height: 450px;"></textarea></td>
+					<td><textarea rows="5" cols="30" name="clIntro" required="required" style="width: 900px; height: 450px;"></textarea></td>
 				</tr>
 				<tr>
 					<td>강좌일</td>
 					<td>
-					<select class="box" name="cl_day">
-						<option value="">선택</option>
-						
+					<select class="box" name="clDay" id="clDay">
+						<option value="" selected disabled hidden>선택</option>
   						<option value="Monday">Monday</option>
   						<option value="Tuesday">Tuesday</option>
   						<option value="Wednsday">Wednsday</option>
@@ -76,14 +76,14 @@ function back(){
 				<tr>
 					<td>시작시간</td>
 					<td>
-						<input type="text" name="cl_start1" required="required" style="width: 30px; height: 25px;">
+						<input type="number" max='23' min='0' name="cl_start1" required="required" style="width: 30px; height: 25px;">
 						:
-						<input type="text" name="cl_start2" required="required" style="width: 30px; height: 25px;">
+						<input type="number" max= '59' min='0' name="cl_start2" required="required" style="width: 30px; height: 25px;">
 					</td>
 				</tr>
 				<tr>
 					<td>소요시간(분)</td>
-					<td><input type="text" name="cl_time" required="required" style="width: 70px; height: 25px;"></td>
+					<td><input type="number" name="clTime" required="required" style="width: 70px; height: 25px;"></td>
 				</tr>
 				<!-- 프로필 사진 -->
 				<tr>
@@ -162,6 +162,17 @@ function createElement(e, file) {
 
     return li;
   }
+function checkTypeDay() {
+	if (document.getElementById("clType").value.length < 1) {
+		alert('강좌타입을 선택하세요.');
+		return false;
+	}
+	if (document.getElementById("clDay").value.length < 1) {
+		alert('요일을 선택하세요.');
+		return false;
+	}
+	return true;
+}
 window.onload = function() {
 	document.getElementById("profile").addEventListener('change', getImageFilesProfile);
 	document.getElementById("thumbnail").addEventListener('change', getImageFilesThumbnail);

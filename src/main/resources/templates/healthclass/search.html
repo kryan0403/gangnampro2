@@ -42,11 +42,11 @@
             </thead>
             <tbody>
                 <tr th:each = "healthclass:${selectlist}">
-                	<td th:text="${healthclass.cl_type}"></td>
+                	<td th:text="${healthclass.clType}"></td>
                     <td>
-                    <a th:text="${healthclass.cl_name}" th:href="@{/healthclass/detail/{cl_no}(cl_no=${healthclass.cl_no})}"></a>
+                    <a th:text="${healthclass.clName}" th:href="@{/healthclass/detail/{cl_no}(cl_no=${healthclass.clNo})}"></a>
                     </td>
-                    <td th:text="${healthclass.cl_memid}"></td>
+                    <td th:text="${healthclass.clMemid}"></td>
                 </tr>
             </tbody>
         </table>

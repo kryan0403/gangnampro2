@@ -35,7 +35,7 @@ public interface HealthclassRepository extends JpaRepository<Healthclass, Long>{
 	public int delete(@Param("cl_no") String cl_no);
 	
 	@Query(value="select MAX(cl_no) from healthclass", nativeQuery=true)
-	public int getLastCl_no();
+	public int getLastClNo();
 	
 	@Query(value="select * from healthclass where cl_no= :cl_no", nativeQuery=true)
 	public Healthclass getlist(@Param("cl_no") String cl_no);

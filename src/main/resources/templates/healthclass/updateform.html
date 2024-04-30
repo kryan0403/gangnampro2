@@ -35,64 +35,64 @@ function back(){
 </div>
 	<div class="container" align="center">
 		<h2 class="text-primary">강좌 수정</h2>
-		<form th:action="@{/healthclass/update/{cl_no}(cl_no=${healthclass.cl_no})}" method="post" name="frm"
+		<form th:action="@{/healthclass/update/{cl_no}(cl_no=${healthclass.clNo})}" method="post" name="frm"
 			onsubmit="return chk()" enctype="multipart/form-data">
 			<table class="table table-striped">			
 				<tr>
 					<td>강좌타입</td>
 					<td>
-					<select class="box" name="cl_type">
-  						<option value="헬스"  th:selected="${healthclass.cl_type} == '헬스'">헬스</option>
-  						<option value="재활" th:selected="${healthclass.cl_type} == '재활'">재활</option>
-  						<option value="필라테스" th:selected="${healthclass.cl_type} == '필라테스'">필라테스</option>
-  						<option value="요가"  th:selected="${healthclass.cl_type} == '요가'">요가</option>	
-  						<option value="시니어" th:selected="${healthclass.cl_type} == '시니어'">시니어</option>
+					<select class="box" name="clType">
+  						<option value="헬스"  th:selected="${healthclass.clType} == '헬스'">헬스</option>
+  						<option value="재활" th:selected="${healthclass.clType} == '재활'">재활</option>
+  						<option value="필라테스" th:selected="${healthclass.clType} == '필라테스'">필라테스</option>
+  						<option value="요가"  th:selected="${healthclass.clType} == '요가'">요가</option>	
+  						<option value="시니어" th:selected="${healthclass.clType} == '시니어'">시니어</option>
 					</select>
 					</td>
 				</tr>
 				<tr>
 					<td>강좌명</td>
 					<td>
-					<input type="text" name="cl_name" required="required" style="width: 900px; height: 25px;"
-						th:value="${healthclass.cl_name}">
+					<input type="text" name="clName" required="required" style="width: 900px; height: 25px;"
+						th:value="${healthclass.clName}">
 					</td>
 				</tr>
 				<tr>
 					<td>소개</td>
 					<td>
-						<textarea name="cl_intro" required="required" style="width: 900px; height: 450px;"
-						th:text="${healthclass.cl_intro}" />
+						<textarea name="clIntro" required="required" style="width: 900px; height: 450px;"
+						th:text="${healthclass.clIntro}" />
 						</td>
 				</tr>
 				<tr>
 					<td>강좌일</td>
 					<td>
-					<select class="box" name="cl_day">
-  						<option value="Monday"  th:selected="${healthclass.cl_day} == 'Monday'">Monday</option>
-  						<option value="Tuesday" th:selected="${healthclass.cl_day} == 'Tuesday'">Tuesday</option>
-  						<option value="Wednsday" th:selected="${healthclass.cl_day} == 'Wednsday'">Wednsday</option>
-  						<option value="Thursday"  th:selected="${healthclass.cl_day} == 'Thursday'">Thursday</option>	
-  						<option value="Friday" th:selected="${healthclass.cl_day} == 'Friday'">Friday</option>
-  						<option value="Saturday" th:selected="${healthclass.cl_day} == 'Saturday'">Saturday</option>
-  						<option value="Sunday" th:selected="${healthclass.cl_day} == 'Sunday'">Sunday</option>
+					<select class="box" name="clDay">
+  						<option value="Monday"  th:selected="${healthclass.clDay} == 'Monday'">Monday</option>
+  						<option value="Tuesday" th:selected="${healthclass.clDay} == 'Tuesday'">Tuesday</option>
+  						<option value="Wednsday" th:selected="${healthclass.clDay} == 'Wednsday'">Wednsday</option>
+  						<option value="Thursday"  th:selected="${healthclass.clDay} == 'Thursday'">Thursday</option>	
+  						<option value="Friday" th:selected="${healthclass.clDay} == 'Friday'">Friday</option>
+  						<option value="Saturday" th:selected="${healthclass.clDay} == 'Saturday'">Saturday</option>
+  						<option value="Sunday" th:selected="${healthclass.clDay} == 'Sunday'">Sunday</option>
 					</select>
 					</td>
 				</tr>
 				<tr>
 					<td>시작시간</td>	
 					<td>
-					<input type="text" name="cl_start1" required="required" style="width: 30px; height: 25px;"
+					<input type="number" max='23' min='0' name="cl_start1" required="required" style="width: 30px; height: 25px;"
 						th:value="${cl_start1}">
 						:
-					<input type="text" name="cl_start2" required="required" style="width: 30px; height: 25px;"
+					<input type="number" max= '59' min='0' name="cl_start2" required="required" style="width: 30px; height: 25px;"
 						th:value="${cl_start2}">
 					</td>
 				</tr>
 				<tr>
 					<td>소요시간(분)</td>
 					<td>
-						<input type="text" name="cl_time" required="required" style="width: 70px; height: 25px;"
-						th:value="${healthclass.cl_time}" />
+						<input type="text" name="clTime" required="required" style="width: 70px; height: 25px;"
+						th:value="${healthclass.clTime}" />
 					</td>
 				</tr>
 				<!-- 프로필 사진 -->
@@ -127,9 +127,9 @@ function goBack() {
 window.onload = function() {
 	document.getElementById("profile").addEventListener('change', getImageFilesProfile);
 	document.getElementById("thumbnail").addEventListener('change', getImageFilesThumbnail);
-	const cl_no = /*[[${healthclass.cl_no}]]*/'기본값'
-	const profileFileName = /*[[${healthclass.cl_profile}]]*/'기본값';
-	const thumbnailFileName = /*[[${healthclass.cl_thumbnail}]]*/'기본값';
+	const cl_no = /*[[${healthclass.clNo}]]*/'기본값'
+	const profileFileName = /*[[${healthclass.clProfile}]]*/'기본값';
+	const thumbnailFileName = /*[[${healthclass.clThumbnail}]]*/'기본값';
 	if ( profileFileName == null) {
 		document.getElementById("image-profile").innerHTML = "<a>저장된 프로필 사진 없음</a>";
 	}

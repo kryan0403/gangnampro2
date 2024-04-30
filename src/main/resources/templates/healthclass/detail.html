@@ -32,26 +32,26 @@
 </div>
 <div class="title-row" align="center">
 	<div class="title">
-		<a th:text="${healthclass.cl_name}"></a>
+		<a th:text="${healthclass.clName}"></a>
 	</div>
 </div>
 <div class="content">
-	<a th:text="|강좌타입 : ${healthclass.cl_type}|"></a>
+	<a th:text="|강좌타입 : ${healthclass.clType}|"></a>
 </div>
 <div class="content">
-	<a th:text="|강사명 : ${healthclass.cl_memname}|"></a>
+	<a th:text="|강사명 : ${healthclass.clMemname}|"></a>
 </div>
 <div class="content">
-	<a th:text="|강좌소개 : ${healthclass.cl_intro}|"></a>
+	<a th:text="|강좌소개 : ${healthclass.clIntro}|"></a>
 </div>
 <div class="content">
-	<a th:text="|강좌일 : ${healthclass.cl_day}|"></a>
+	<a th:text="|강좌일 : ${healthclass.clDay}|"></a>
 </div>
 <div class="content">
-	<a th:text="|시작시간 : ${healthclass.cl_start}|"></a>
+	<a th:text="|시작시간 : ${healthclass.clStart}|"></a>
 </div>
 <div class="content">
-	<a th:text="|소요시간(분) : ${healthclass.cl_time} |"></a>
+	<a th:text="|소요시간(분) : ${healthclass.clTime} |"></a>
 </div>
 <div class="content">
 	<a>강사 프로필 : </a><ul class="image-profile" id="image-profile"></ul>
@@ -63,8 +63,8 @@
 <input type="button" sec:authorize="isAuthenticated()" value="수강신청"/>
 <input type="button" sec:authorize="isAuthenticated()" value="강의참여"/>
 <input type="button" sec:authorize="isAuthenticated()" value="관심등록"/>
-<input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.cl_no})} + '\''" />
-<input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.cl_no})} + '\''" />
+<input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
+<input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
 <input type="button" value="목록으로" onclick="goBack()" />
 </body>
 <script th:inline="javascript">
@@ -72,9 +72,9 @@ function goBack() {
 	window.history.back();
 }
 window.onload = function() {
-	const cl_no = /*[[${healthclass.cl_no}]]*/'기본값'
-	const profileFileName = /*[[${healthclass.cl_profile}]]*/'기본값';
-	const thumbnailFileName = /*[[${healthclass.cl_thumbnail}]]*/'기본값';
+	const cl_no = /*[[${healthclass.clNo}]]*/'기본값'
+	const profileFileName = /*[[${healthclass.clProfile}]]*/'기본값';
+	const thumbnailFileName = /*[[${healthclass.clThumbnail}]]*/'기본값';
 	if ( profileFileName == null) {
 		document.getElementById("image-profile").innerHTML = "<a>프로필 사진 없음</a>";
 	}

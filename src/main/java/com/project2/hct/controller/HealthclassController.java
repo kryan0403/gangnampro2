@@ -83,20 +83,19 @@ public class HealthclassController {
 			@RequestParam("thumbnail") MultipartFile thumbnail,
 			HealthclassDTO healthclassDTO, HttpServletRequest hsr) throws IOException {
 		
-		healthclassDTO.setCl_start(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
+		healthclassDTO.setClStart(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
 		//insert 후 최신no를 가져온다음(이때는 두개다 null상태), 선택된 파일이 있으면 update해준다
 		hs.save(healthclassDTO);
-		Integer cl_no = hs.getLastCl_no();
-		String newCl_no = cl_no.toString();
-		healthclassDTO = hs.getlist(Long.parseLong(newCl_no));
+		Integer clNo = hs.getLastClNo();
+		healthclassDTO = hs.findByClNo(clNo.toString());
 		if ( !profile.getOriginalFilename().equals("") ) {
-			hs.updateProfile(newCl_no, profile.getOriginalFilename());
-			upload_save(newCl_no, profile);
+			hs.updateProfile(clNo.toString(), profile.getOriginalFilename());
+			upload_save(clNo.toString(), profile);
 				
 		}
 		if ( !thumbnail.getOriginalFilename().equals("") ) {
-			hs.updateThumbnail(newCl_no, thumbnail.getOriginalFilename());
-			upload_save(newCl_no, thumbnail);
+			hs.updateThumbnail(clNo.toString(), thumbnail.getOriginalFilename());
+			upload_save(clNo.toString(), thumbnail);
 			
 		}
 		return "healthclass/insertSuccess.html";
@@ -132,90 +131,90 @@ public class HealthclassController {
 		return "/healthclass/search.html";
 	}
 	
-	@RequestMapping("/healthclass/detail/{cl_no}")
-	public String detail(@PathVariable("cl_no") String cl_no, Model model) {
-		cl_no += "(";
-		int idx = cl_no.indexOf("(");
-		cl_no = cl_no.substring(0,idx);
-		model.addAttribute("healthclass", hs.getlist(Long.parseLong(cl_no)));
+	@RequestMapping("/healthclass/detail/{clNo}")
+	public String detail(@PathVariable("clNo") String clNo, Model model) {
+		clNo += "(";
+		int idx = clNo.indexOf("(");
+		clNo = clNo.substring(0,idx);
+		model.addAttribute("healthclass", hs.findByClNo(clNo));
 		return "healthclass/detail.html";
 	}
 	
-	@RequestMapping("healthclass/delete/{cl_no}")
-	public String delete(@PathVariable("cl_no") String cl_no) throws IOException {
-		cl_no += "(";
-		int idx = cl_no.indexOf("(");
-		cl_no = cl_no.substring(0,idx);
-		HealthclassDTO healthclassDTO = hs.getlist(Long.parseLong(cl_no));
-		upload_delete(cl_no, healthclassDTO.getCl_profile());
-		upload_delete(cl_no, healthclassDTO.getCl_thumbnail());
-		hs.delete(cl_no);        
+	@RequestMapping("healthclass/delete/{clNo}")
+	public String delete(@PathVariable("clNo") String clNo) throws IOException {
+		clNo += "(";
+		int idx = clNo.indexOf("(");
+		clNo = clNo.substring(0,idx);
+		HealthclassDTO healthclassDTO = hs.findByClNo(clNo);
+		upload_delete(clNo, healthclassDTO.getClProfile());
+		upload_delete(clNo, healthclassDTO.getClThumbnail());
+		hs.delete(clNo);        
 		return "healthclass/deleteSuccess.html";
 	}
 	
-	@RequestMapping("healthclass/updateform/{cl_no}")
-	public String updateform(@PathVariable("cl_no") String cl_no,Model model) {
-		cl_no += "(";
-		int idx = cl_no.indexOf("(");
-		cl_no = cl_no.substring(0,idx);
-		HealthclassDTO healthclassDTO = hs.getlist(Long.parseLong(cl_no));
-		int idx2 = healthclassDTO.getCl_start().indexOf(":");
+	@RequestMapping("healthclass/updateform/{clNo}")
+	public String updateform(@PathVariable("clNo") String clNo,Model model) {
+		clNo += "(";
+		int idx = clNo.indexOf("(");
+		clNo = clNo.substring(0,idx);
+		HealthclassDTO healthclassDTO = hs.findByClNo(clNo);
+		int idx2 = healthclassDTO.getClStart().indexOf(":");
 		model.addAttribute("healthclass", healthclassDTO);
-		model.addAttribute("cl_start1", healthclassDTO.getCl_start().substring(0, idx2));
-		model.addAttribute("cl_start2", healthclassDTO.getCl_start().substring(idx2+1));
+		model.addAttribute("cl_start1", healthclassDTO.getClStart().substring(0, idx2));
+		model.addAttribute("cl_start2", healthclassDTO.getClStart().substring(idx2+1));
 		return "healthclass/updateform.html";
 	}
 	
-	@RequestMapping("healthclass/update/{cl_no}")
-	public String update(@PathVariable("cl_no") String cl_no, @RequestParam("profile") MultipartFile profile,
+	@RequestMapping("healthclass/update/{clNo}")
+	public String update(@PathVariable("clNo") String clNo, @RequestParam("profile") MultipartFile profile,
 			@RequestParam("thumbnail") MultipartFile thumbnail,
 			HealthclassDTO afterDTO,
 			HttpServletRequest hsr) throws IOException {
 		
-		cl_no += "(";
-		int idx = cl_no.indexOf("(");
-		cl_no = cl_no.substring(0,idx);
-		HealthclassDTO beforeDTO = hs.getlist(Long.parseLong(cl_no));
-		afterDTO.setCl_no(Long.parseLong(cl_no));
-		afterDTO.setCl_start(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
+		clNo += "(";
+		int idx = clNo.indexOf("(");
+		clNo = clNo.substring(0,idx);
+		HealthclassDTO beforeDTO = hs.findByClNo(clNo);
+		afterDTO.setClNo(Long.parseLong(clNo));
+		afterDTO.setClStart(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
 		
-		upload_delete(cl_no, beforeDTO.getCl_profile());
-		upload_delete(cl_no, beforeDTO.getCl_thumbnail());
+		upload_delete(clNo, beforeDTO.getClProfile());
+		upload_delete(clNo, beforeDTO.getClThumbnail());
 		hs.save(afterDTO);
 		
 		if ( !profile.getOriginalFilename().equals("") ) {
-			upload_save(cl_no, profile);
-			hs.updateProfile(cl_no, profile.getOriginalFilename());
+			upload_save(clNo, profile);
+			hs.updateProfile(clNo, profile.getOriginalFilename());
 		}
 		else {
-			hs.updateProfileNull(cl_no);
+			hs.updateProfileNull(clNo);
 		}
 		if (  !thumbnail.getOriginalFilename().equals("")) {
-			upload_save(cl_no, thumbnail);
-			hs.updateProfile(cl_no, profile.getOriginalFilename());
+			upload_save(clNo, thumbnail);
+			hs.updateProfile(clNo, profile.getOriginalFilename());
 		}
 		else {
-			hs.updateThumbnailNull(cl_no);
+			hs.updateThumbnailNull(clNo);
 		}
 	
 		return "healthclass/updateSuccess.html";
 	}
 	
-	public String upload_save(String cl_no, MultipartFile file) {
+	public String upload_save(String clNo, MultipartFile file) {
 		try {
-			file.transferTo(new File(cl_no + "_" + file.getOriginalFilename()));
+			file.transferTo(new File(clNo + "_" + file.getOriginalFilename()));
 			return "Success";
 		}catch(Exception e) { 
 			return "Fail";
 		}
 		
 	}
-	public String upload_delete(String cl_no, String file_name) {
+	public String upload_delete(String clNo, String file_name) {
 		File path = new File(realpath+"/");
 		try {
 			File[] filelist = path.listFiles();
 			String[] filelist_names = path.list();
-			int idx = Arrays.binarySearch(filelist_names, cl_no +"_" +file_name);
+			int idx = Arrays.binarySearch(filelist_names, clNo +"_" +file_name);
 			filelist[idx].delete();
 			return "Success";
 		}

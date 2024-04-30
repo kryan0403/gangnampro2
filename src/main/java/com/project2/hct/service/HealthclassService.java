@@ -20,25 +20,18 @@ public class HealthclassService {
 	@Autowired
 	private ModelMapper mm;
 	
-	public int getLastCl_no() {
-		return hr.getLastCl_no();
+	public int getLastClNo() {
+		return hr.getLastClNo();
 	}
 
 	public void save(HealthclassDTO healthclassDTO) {
-		Healthclass healthclass = new Healthclass();
-		healthclass.setClName(healthclassDTO.getCl_name());
-		healthclass.setClIntro(healthclassDTO.getCl_type());
-		healthclass.setClDay(healthclassDTO.getCl_day());
-		healthclass.setClStart(healthclassDTO.getCl_start());
-		healthclass.setClTime(healthclassDTO.getCl_time());
-		healthclass.setClNo(healthclassDTO.getCl_no());
-		hr.save(healthclass);
+		hr.save(mm.map(healthclassDTO, Healthclass.class));
 	}
 	public void delete(String cl_no) {	
 		hr.delete(cl_no);
 	}
-	public HealthclassDTO getlist(Long cl_no) {
-		return mm.map(hr.findByClNo(cl_no), HealthclassDTO.class);
+	public HealthclassDTO findByClNo(String cl_no) {
+		return mm.map(hr.findByClNo(Long.parseLong(cl_no)), HealthclassDTO.class);
 		
 	}
 
@@ -47,6 +40,7 @@ public class HealthclassService {
 				.map(data -> mm.map(data, HealthclassDTO.class))
 				.collect(Collectors.toList());
 	}
+	
 	public List<HealthclassDTO> selectCategory(int startRow, int endRow, String cl_type) {
 		if ( cl_type.equals("Yoga") )
 			return hr.selectCategory(startRow, endRow, "요가").stream()
@@ -71,8 +65,9 @@ public class HealthclassService {
 		else 
 			return hr.select(startRow, endRow).stream()
 					.map(data -> mm.map(data, HealthclassDTO.class))
-					.collect(Collectors.toList());
+					.collect(Collectors.toList());	
 	}
+	
 	public int getTotal(String cl_type) {
 		if (cl_type.equals("Yoga"))
 			return hr.getTotal("요가");
@@ -85,8 +80,7 @@ public class HealthclassService {
 		else if( cl_type.equals("Rehabilitation") )
 			return hr.getTotal("재활");
 		else
-			return hr.getTotal();
-		
+			return hr.getTotal();		
 	}
 
 	public List<HealthclassDTO> selectSearch(int startRow, 
@@ -174,6 +168,7 @@ public class HealthclassService {
 			else return hr.getTotalBySearch_Day(cl_type, searchDay);
 		}
 	}
+	
 	public void updateProfileNull(String cl_no) {
 		hr.updateProfileNull(cl_no);
 	}
