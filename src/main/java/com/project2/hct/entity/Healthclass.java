@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -14,40 +12,40 @@ import lombok.Data;
 @Entity
 @Table(name= "healthclass")
 public class Healthclass {
+	
 	@Id
-	@Column(name="cl_no")
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long clNo;
 	// 수업종류 ( ~ : 1, ~ : 2 )
-	@Column(name="cl_type")
+	@Column
 	private String clType;
 	// 수업 이름
-	@Column(name="cl_name")
+	@Column
 	private String clName;
-	// 강사 ID
-	@ManyToOne
-	@JoinColumn(name = "cl_memId")  // name 속성은 외래키 필드명(내 컬럼명)
-	private Member member;  // 참조 테이블(referencedColumnName 생략해서 @ID로 자동 매핑)
+	// FK ~ 멤버 테이블의 PK 값 -강사ID (ManyToOne, JoinColumn)
+	@Column
+	private String clMemid;
 	// 강사 이름
-	@Column(name="cl_memname")
-	private String clMemName;
+	@Column
+	private String clMemname;
 	// 수업 소개
-	@Column(name="cl_intro")
+	@Column
 	private String clIntro;
 	// 수업 시작 시간
-	@Column(name="cl_start")
+	@Column
 	private String clStart;
 	// 총 시간(분)
-	@Column(name="cl_time")
+	@Column
 	private String clTime;
 	// 수업 진행 요일
-	@Column(name="cl_day")
+	@Column
 	private String clDay;
 	// 썸네일용 사진
-	@Column(name="cl_thumbnail")
+	@Column
 	private String clThumbnail;
 	// 강사 프로필 사진
-	@Column(name="cl_profile")
+	@Column
 	private String clProfile;
 
 }
