@@ -16,17 +16,18 @@ import lombok.Data;
 @Entity
 @Table(name= "noticeboard")
 public class Noticeboard {
+	
 	@Id
-	@Column(name="nb_no")
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long nbNo;
-	@Column(name="nb_title")
+	@Column
 	private String nbTitle;
-	@Column(name="nb_content")
+	@Column
 	private String nbContent;
 	
 	@CreationTimestamp
-	@Column(name="nb_date")
+	@Column
 	private Timestamp nbDate;
 
 }

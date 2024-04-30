@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/css/header.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function back(){
+     history.back();
+}
+</script>
+</head>
+<body>
+<div align="right">
+<div sec:authorize="isAnonymous()">
+<button onclick="location.href='/login'">로그인</button>
+<button onclick="location.href='/register'">회원가입</button>
+</div>
+<div sec:authorize="isAuthenticated()">
+<button onclick="location.href='/myPage'">마이페이지</button>
+<button onclick="location.href='/logout'">로그아웃</button>
+</div>
+</div>
+<div>
+	<h1><a href="/main"><img src="/image/airplane.png" alt="로고" style="weight: 100px; height:100px;"></a></h1>
+</div>
+<div class="topMenu" >
+	<ul class="menu">
+		<li class="li"><a class="menuLink" href="">메뉴1</a></li>
+		<li class="li"><a class="menuLink" href="">메뉴2</a></li>
+		<li class="li"><a class="menuLink" href="">메뉴3</a></li>
+	</ul>
+</div>
+	<div class="container" align="center">
+		<h2 class="text-primary">강좌 작성</h2>
+		<form action="/healthclass/insert" method="post" enctype="multipart/form-data">
+			<table class="table table-striped">	
+				<tr>
+					<td>강좌타입</td>
+					<td>
+					<select class="box" name="cl_type">
+						<option value="">선택</option>
+  						<option value="헬스">헬스</option>
+  						<option value="재활">재활</option>
+  						<option value="필라테스">필라테스</option>
+  						<option value="요가">요가</option>	
+  						<option value="시니어">시니어</option>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td>강좌명</td>
+					<td><input type="text" name="cl_name" required="required" style="width: 900px; height: 25px;"></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td><textarea rows="5" cols="30" name="cl_intro" required="required" style="width: 900px; height: 450px;"></textarea></td>
+				</tr>
+				<tr>
+					<td>강좌일</td>
+					<td>
+					<select class="box" name="cl_day">
+						<option value="">선택</option>
+						
+  						<option value="Monday">Monday</option>
+  						<option value="Tuesday">Tuesday</option>
+  						<option value="Wednsday">Wednsday</option>
+  						<option value="Thursday">Thursday</option>	
+  						<option value="Friday">Friday</option>
+  						<option value="Saturday">Saturday</option>
+  						<option value="Sunday">Sunday</option>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td>시작시간</td>
+					<td>
+						<input type="text" name="cl_start1" required="required" style="width: 30px; height: 25px;">
+						:
+						<input type="text" name="cl_start2" required="required" style="width: 30px; height: 25px;">
+					</td>
+				</tr>
+				<tr>
+					<td>소요시간(분)</td>
+					<td><input type="text" name="cl_time" required="required" style="width: 70px; height: 25px;"></td>
+				</tr>
+				<!-- 프로필 사진 -->
+				<tr>
+					<td>강사사진</td>
+					<td>
+					<input type="file" name="profile" id="profile"/>
+					<ul class="profile-preview" id="profile-preview"></ul>
+					</td>
+					
+				</tr>
+				<tr>	
+					<td>강의 썸네일</td>
+					<td>
+					<input type="file" name="thumbnail" id="thumbnail"/>
+					<ul class="thumbnail-preview" id="thumbnail-preview"></ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+					<input type="submit" value="작성">
+					<input type="button" value="취소" onclick="back()">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+<script>
+function getImageFilesProfile(e) {
+    const files = e.currentTarget.files;
+    const imagePreview = document.querySelector('.profile-preview');
+	document.getElementById("profile-preview").replaceChildren();
+    // 파일 타입 검사
+    [...files].forEach(file => {
+      if (!file.type.match("image/.*")) {
+        alert('이미지 파일만 업로드가 가능합니다.');
+        return;
+      } // if
+    
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const preview = createElement(e, file);
+          imagePreview.appendChild(preview);
+        }; //onload
+        reader.readAsDataURL(file);
+    }); // forEach
+  } //getImageFilesProfile
+  function getImageFilesThumbnail(e) {
+	    const files = e.currentTarget.files;
+	    const imagePreview = document.querySelector('.thumbnail-preview');
+		document.getElementById("thumbnail-preview").replaceChildren();
+	    // 파일 타입 검사
+	    [...files].forEach(file => {
+	      if (!file.type.match("image/.*")) {
+	        alert('이미지 파일만 업로드가 가능합니다.');
+	        return;
+	      } // if
+	    
+	        const reader = new FileReader();
+	        reader.onload = (e) => {
+	          const preview = createElement(e, file);
+	          imagePreview.appendChild(preview);
+	        }; //onload
+	        reader.readAsDataURL(file);
+	    }); // forEach
+	  } //getImageFilesThumbnail
+	  
+function createElement(e, file) {
+    const li = document.createElement('li');
+    const img = document.createElement('img');
+    img.setAttribute('src', e.target.result);
+    img.setAttribute('data-file', file.name);
+    img.setAttribute('width', 150);
+    img.setAttribute('height', 150);
+    li.appendChild(img);
+
+    return li;
+  }
+window.onload = function() {
+	document.getElementById("profile").addEventListener('change', getImageFilesProfile);
+	document.getElementById("thumbnail").addEventListener('change', getImageFilesThumbnail);
+}
+</script>
+</html>
