@@ -2,7 +2,9 @@ package com.project2.hct.service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +12,19 @@ import com.project2.hct.Repository.HealthclassRepository;
 import com.project2.hct.dto.HealthclassDTO;
 import com.project2.hct.entity.Healthclass;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class HealthclassService {
 	
 	@Autowired
 	private HealthclassRepository hr;
+	@Autowired
+	private ModelMapper mm;
 	
 	public int getLastCl_no() {
 		return hr.getLastCl_no();
 	}
-	public void update(HealthclassDTO healthclassDTO) {
+
+	public void save(HealthclassDTO healthclassDTO) {
 		Healthclass healthclass = new Healthclass();
 		healthclass.setClName(healthclassDTO.getCl_name());
 		healthclass.setClIntro(healthclassDTO.getCl_type());
@@ -30,33 +32,46 @@ public class HealthclassService {
 		healthclass.setClStart(healthclassDTO.getCl_start());
 		healthclass.setClTime(healthclassDTO.getCl_time());
 		healthclass.setClNo(healthclassDTO.getCl_no());
-		
-		hr.update(healthclass);
+		hr.save(healthclass);
 	}
-
 	public void delete(String cl_no) {	
 		hr.delete(cl_no);
 	}
 	public HealthclassDTO getlist(Long cl_no) {
-		return hr.findByClNo(cl_no);
+		return mm.map(hr.findByClNo(cl_no), HealthclassDTO.class);
+		
 	}
 
-	public List<Healthclass> select(int startRow, int endRow) {
-		return hr.select(startRow, endRow);
+	public List<HealthclassDTO> select(int startRow, int endRow) {
+		return hr.select(startRow, endRow).stream()
+				.map(data -> mm.map(data, HealthclassDTO.class))
+				.collect(Collectors.toList());
 	}
-	public List<Healthclass> selectCategory(int startRow, int endRow, String cl_type) {
+	public List<HealthclassDTO> selectCategory(int startRow, int endRow, String cl_type) {
 		if ( cl_type.equals("Yoga") )
-			return hr.selectCategory(startRow, endRow, "요가");
+			return hr.selectCategory(startRow, endRow, "요가").stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		else if( cl_type.equals("Pilates") )
-			return hr.selectCategory(startRow, endRow, "필라테스");
+			return hr.selectCategory(startRow, endRow, "필라테스").stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		else if( cl_type.equals("Health") )
-			return hr.selectCategory(startRow, endRow, "헬스");
+			return hr.selectCategory(startRow, endRow, "헬스").stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		else if( cl_type.equals("Senior") )
-			return hr.selectCategory(startRow, endRow, "시니어");
+			return hr.selectCategory(startRow, endRow, "시니어").stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		else if( cl_type.equals("Rehabilitation") )
-			return hr.selectCategory(startRow, endRow, "재활");
+			return hr.selectCategory(startRow, endRow, "재활").stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		else 
-			return hr.select(startRow, endRow);
+			return hr.select(startRow, endRow).stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 	}
 	public int getTotal(String cl_type) {
 		if (cl_type.equals("Yoga"))
@@ -73,16 +88,8 @@ public class HealthclassService {
 			return hr.getTotal();
 		
 	}
-	public void insert(HealthclassDTO healthclass) {
-		hr.insert(healthclass.getCl_name(),
-				healthclass.getCl_intro(),
-				healthclass.getCl_type(),
-				healthclass.getCl_day(),
-				healthclass.getCl_start(),
-				healthclass.getCl_time());
-		
-	}
-	public List<Healthclass> selectSearch(int startRow, 
+
+	public List<HealthclassDTO> selectSearch(int startRow, 
 			String searchCategory,
 			String cl_type,
 			String searchKeyword,
@@ -101,21 +108,33 @@ public class HealthclassService {
 			cl_type = "전체";
 		if ( cl_type.equals("전체")) {
 			if ( searchCategory.equals("강좌명") ) {
-				return hr.selectSearchAll_Classname(searchKeyword);
+				return hr.selectSearchAll_Classname(searchKeyword).stream()
+						.map(data -> mm.map(data, HealthclassDTO.class))
+						.collect(Collectors.toList());
 			}
 			else if ( searchCategory.equals("강사명")) {
-				return hr.selectSearchAll_Memname(searchKeyword);
+				return hr.selectSearchAll_Memname(searchKeyword).stream()
+						.map(data -> mm.map(data, HealthclassDTO.class))
+						.collect(Collectors.toList());
 			}
-			else return hr.selectSearchAll_Day(searchDay);
+			else return hr.selectSearchAll_Day(searchDay).stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		}
 		else {
 			if ( searchCategory.equals("강좌명") ) {
-				return hr.selectSearch_Classname(cl_type, searchKeyword);
+				return hr.selectSearch_Classname(cl_type, searchKeyword).stream()
+						.map(data -> mm.map(data, HealthclassDTO.class))
+						.collect(Collectors.toList());
 			}
 			else if ( searchCategory.equals("강사명")) {
-				return hr.selectSearch_Memname(cl_type, searchKeyword);
+				return hr.selectSearch_Memname(cl_type, searchKeyword).stream()
+						.map(data -> mm.map(data, HealthclassDTO.class))
+						.collect(Collectors.toList());
 			}
-			else return hr.selectSearch_Day(cl_type, searchDay);
+			else return hr.selectSearch_Day(cl_type, searchDay).stream()
+					.map(data -> mm.map(data, HealthclassDTO.class))
+					.collect(Collectors.toList());
 		}
 	}
 	
@@ -169,4 +188,5 @@ public class HealthclassService {
 		hr.updateThumbnail(Cl_no, thumbnail);
 		
 	}
+
 }

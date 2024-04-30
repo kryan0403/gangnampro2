@@ -85,7 +85,7 @@ public class HealthclassController {
 		
 		healthclassDTO.setCl_start(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
 		//insert 후 최신no를 가져온다음(이때는 두개다 null상태), 선택된 파일이 있으면 update해준다
-		hs.insert(healthclassDTO);
+		hs.save(healthclassDTO);
 		Integer cl_no = hs.getLastCl_no();
 		String newCl_no = cl_no.toString();
 		healthclassDTO = hs.getlist(Long.parseLong(newCl_no));
@@ -181,7 +181,7 @@ public class HealthclassController {
 		
 		upload_delete(cl_no, beforeDTO.getCl_profile());
 		upload_delete(cl_no, beforeDTO.getCl_thumbnail());
-		hs.update(afterDTO);
+		hs.save(afterDTO);
 		
 		if ( !profile.getOriginalFilename().equals("") ) {
 			upload_save(cl_no, profile);

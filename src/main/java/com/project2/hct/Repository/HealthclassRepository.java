@@ -15,23 +15,9 @@ import jakarta.transaction.Transactional;
 
 
 @Repository
-public interface HealthclassRepository extends JpaRepository<Healthclass, Integer>{
-	public Healthclass save(Healthclass healthclass);
-	public void update(Healthclass healthclass);
+public interface HealthclassRepository extends JpaRepository<Healthclass, Long>{
 	public List<Healthclass> findAll();
-	public HealthclassDTO findByClNo(Long ClNo);
-	
-	@Transactional
-	@Modifying
-	@Query(value="insert into healthclass (cl_name, cl_intro, cl_type, cl_day, cl_start, cl_time) "
-			+ "values (:cl_name, :cl_intro, :cl_type, :cl_day, :cl_start, :cl_time)", nativeQuery=true)
-	public int insert(
-			@Param("cl_name") String cl_name,
-			@Param("cl_intro") String cl_intro,
-			@Param("cl_type") String cl_type,
-			@Param("cl_day") String cl_day,
-			@Param("cl_start") String cl_start,
-			@Param("cl_time") String cl_time);
+	public Healthclass findByClNo(Long clNo);
 	
 	@Transactional
 	@Modifying
