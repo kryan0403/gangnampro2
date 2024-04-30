@@ -8,8 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -20,33 +18,30 @@ import lombok.Data;
 public class Member {
 	
 	@Id
-	@Column(name="mem_id")
+	@Column
 	private String memId;
-	@Column(name="mem_pw")
+	@Column	
 	private String memPw;
-	@Column(name="mem_nickname")
+	@Column
 	private String memNickname;
-	@Column(name="mem_name")
+	@Column
 	private String memName;
-	@Column(name="mem_birth")
+	@Column
 	private String memBirth;
-	@Column(name="mem_tel")
+	@Column
 	private String memTel;
+	@Column
+	private String memRole;
 	@ColumnDefault("'y'")
-	@Column(name="mem_active")
+	@Column
 	private String memActive;
 	
-	@CreationTimestamp	// 생성시 당일날짜 자동 입력 - 가입일
-	@Column(name="mem_reg")
+	@CreationTimestamp  // 생성시 당일날짜 자동 입력 - 가입일
+	@Column
 	private Timestamp memReg;
 	
-	@UpdateTimestamp	// 업데이트시 당일날짜 자동 입력 - 탈퇴일
-	@Column(name="mem_del")
+	@UpdateTimestamp  // 업데이트시 당일날짜 자동 입력 - 탈퇴일
+	@Column
 	private Timestamp memDel;
-
-	// Role 로 대체 가능?
-	@Column(name="mem_type")
-	private String memType;
-	
 }
 
