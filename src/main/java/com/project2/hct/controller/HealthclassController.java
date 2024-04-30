@@ -28,7 +28,7 @@ public class HealthclassController {
 	@Autowired
 	private HealthclassService hs;
 	
-	String realpath = "C:\\upload";
+	String realpath = "C:\\gangnampro2/image/upload";
 	
 	@RequestMapping("/")
 	public String init() {
