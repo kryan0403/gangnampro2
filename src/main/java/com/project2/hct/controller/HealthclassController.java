@@ -67,18 +67,18 @@ public class HealthclassController {
 		return "healthclass/list.html";
 	}
 	
-	@RequestMapping("healthclass/insertform")
-	public String insertform() {
-		return "healthclass/insertform.html";
+	@RequestMapping("healthclass/writeform")
+	public String writeform() {
+		return "healthclass/writeform.html";
 	}
 	
-	@RequestMapping("healthclass/insert")
-	public String insert(@RequestParam("profile") MultipartFile profile,
+	@RequestMapping("healthclass/write")
+	public String write(@RequestParam("profile") MultipartFile profile,
 			@RequestParam("thumbnail") MultipartFile thumbnail,
 			HealthclassDTO healthclassDTO, HttpServletRequest hsr) throws IOException {
 		
 		healthclassDTO.setClStart(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
-		//insert 후 최신no를 가져온다음(이때는 두개다 null상태), 선택된 파일이 있으면 update해준다
+		// 최신no를 가져온다음(이때는 두개다 null상태), 선택된 파일이 있으면 update해준다
 		hs.save(healthclassDTO);
 		Integer clNo = hs.getLastClNo();
 		healthclassDTO = hs.findByClNo(clNo.toString());
@@ -92,7 +92,7 @@ public class HealthclassController {
 			upload_save(clNo.toString(), thumbnail);
 			
 		}
-		return "healthclass/insertSuccess.html";
+		return "healthclass/writeSuccess.html";
 	}
 	
 	@RequestMapping(value="/healthclass/search", method=RequestMethod.GET)
