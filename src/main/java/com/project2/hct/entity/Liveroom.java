@@ -28,4 +28,3 @@ public class Liveroom {
 	private String liveThumbnail;
 	
 }
-

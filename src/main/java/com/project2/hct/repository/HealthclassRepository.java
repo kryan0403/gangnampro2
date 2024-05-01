@@ -1,4 +1,4 @@
-package com.project2.hct.Repository;
+package com.project2.hct.repository;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.project2.hct.dto.HealthclassDTO;
 import com.project2.hct.entity.Healthclass;
 
 import jakarta.transaction.Transactional;

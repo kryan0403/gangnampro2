@@ -31,4 +31,3 @@ public class Noticeboard {
 	private Timestamp nbDate;
 
 }
-

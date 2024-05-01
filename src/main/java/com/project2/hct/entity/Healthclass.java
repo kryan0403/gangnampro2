@@ -49,4 +49,3 @@ public class Healthclass {
 	private String clProfile;
 
 }
-

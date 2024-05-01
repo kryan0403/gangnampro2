@@ -8,9 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project2.hct.Repository.HealthclassRepository;
 import com.project2.hct.dto.HealthclassDTO;
 import com.project2.hct.entity.Healthclass;
+import com.project2.hct.repository.HealthclassRepository;
 
 @Service
 public class HealthclassService {
@@ -25,22 +25,23 @@ public class HealthclassService {
 	}
 
 	public void save(HealthclassDTO healthclassDTO) {
+		//모델맵퍼 -> dto를 entity로 변환
 		hr.save(mm.map(healthclassDTO, Healthclass.class));
-	}
-	public void delete(String cl_no) {	
-		hr.delete(cl_no);
-	}
-	public HealthclassDTO findByClNo(String cl_no) {
-		return mm.map(hr.findByClNo(Long.parseLong(cl_no)), HealthclassDTO.class);
-		
 	}
 
 	public List<HealthclassDTO> select(int startRow, int endRow) {
+		//모델맵퍼 -> entity를 dto리스트로 변환
 		return hr.select(startRow, endRow).stream()
 				.map(data -> mm.map(data, HealthclassDTO.class))
 				.collect(Collectors.toList());
 	}
 	
+	public HealthclassDTO findByClNo(String cl_no) {
+		//모델맵퍼 -> entity를 dto로 변환(단일값)
+		return mm.map(hr.findByClNo(Long.parseLong(cl_no)), HealthclassDTO.class);
+		
+	}
+
 	public List<HealthclassDTO> selectCategory(int startRow, int endRow, String cl_type) {
 		if ( cl_type.equals("Yoga") )
 			return hr.selectCategory(startRow, endRow, "요가").stream()
@@ -68,6 +69,9 @@ public class HealthclassService {
 					.collect(Collectors.toList());	
 	}
 	
+	public void delete(String cl_no) {	
+		hr.delete(cl_no);
+	}
 	public int getTotal(String cl_type) {
 		if (cl_type.equals("Yoga"))
 			return hr.getTotal("요가");

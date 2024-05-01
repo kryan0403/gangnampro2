@@ -24,4 +24,3 @@ public class Wishlist {
 	private String wishClno;
 
 }
-

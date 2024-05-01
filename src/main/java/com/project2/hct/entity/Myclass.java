@@ -25,4 +25,3 @@ public class Myclass {
 	private String mycClno;
 
 }
-

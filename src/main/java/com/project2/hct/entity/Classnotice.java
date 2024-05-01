@@ -32,4 +32,3 @@ public class Classnotice {
 	private Timestamp clnDate;
 
 }
-
