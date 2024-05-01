@@ -47,11 +47,49 @@
 <input type="button" sec:authorize="isAuthenticated()" value="관심등록"/>
 <input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
 <input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
-<input type="button" value="목록으로" onclick="goBack()" />
+<input type="button" value="목록으로" th:onclick="'location.href=\''+ @{/healthclass/All/1} + '\''" />
+
+<div>
+<form action="/classnotice/write.do" method="post">
+<a>공지작성</a><input type="textarea" style="width: 700px; height: 80px;" name="clnContent" id="clnContent" />
+<input type="hidden" name="clnClno" th:value="${healthclass.clNo}"/>
+<input type="submit" value="공지등록" />
+</form>
+<table class="board-table">
+            <thead>
+            <td>공지번호</td>
+            <td style="text-align:center; width: 500px;">공지내용</td>
+            <td>작성시간</td>
+            </thead>
+            <tbody>
+                <tr th:each = "classnotice:${noticelist}">
+                	<td th:text="${classnotice.clnNo}"></td>
+                	<td style="text-align:center; width: 500px; height:50px;" th:text="${classnotice.clnContent}"></td>
+                	<td th:text="${classnotice.clnDate}"></td>
+                    <td><button
+                     th:onclick="'location.href=\''+@{/classnotice/delete/{clnClno}/{clnNo}(clnClno=${healthclass.clNo}, clnNo=${classnotice.clnNo})} + '\''">공지삭제</button></td>
+                </tr>
+            </tbody>
+        </table>
+</div>
 </div>
 <th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 <script th:inline="javascript">
+function classnoticeWrite() {
+	fetch('classnotice/write.do', {
+		method : 'POST',
+		body : JSON.stringify({
+			"clnContent" : document.getElementById('clnContent').value
+		})
+	}).then( (res) => {
+		if ( !res.ok )
+			throw new Error("400 or 500 ERR");
+		return res.json();
+	}).then( (data) => {
+		console.log(data);
+	}).catch(e=> console.log("err:"+e));
+}
 function goBack() {
 	window.history.back();
 }

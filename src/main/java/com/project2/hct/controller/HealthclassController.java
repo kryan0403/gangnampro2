@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project2.hct.dto.HealthclassDTO;
 import com.project2.hct.dto.PagingPgm;
-import com.project2.hct.entity.Healthclass;
+import com.project2.hct.service.ClassnoticeService;
 import com.project2.hct.service.HealthclassService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,8 +27,9 @@ public class HealthclassController {
 
 	@Autowired
 	private HealthclassService hs;
-	
-	String realpath = "C:\\gangnampro2/image/upload";
+	@Autowired
+	private ClassnoticeService cs;
+	String realpath = "C:\\Users/user/git/gangnampro2/src/main/resources/static/image";
 
 
 	@RequestMapping("/healthclass")
@@ -130,6 +131,7 @@ public class HealthclassController {
 		int idx = clNo.indexOf("(");
 		clNo = clNo.substring(0,idx);
 		model.addAttribute("healthclass", hs.findByClNo(clNo));
+		model.addAttribute("noticelist", cs.findByClnClno(clNo));
 		return "healthclass/detail.html";
 	}
 	

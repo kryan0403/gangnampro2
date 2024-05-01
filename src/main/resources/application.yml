@@ -6,7 +6,7 @@ server:
 spring:
   servlet:
     multipart:
-      location: C:/gangnampro2/image/upload
+      location: C:Users/user/git/gangnampro2/src/main/resources/static/image
       max-file-size: 10MB
       max-request-size: 10MB
   thymeleaf:

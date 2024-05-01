@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void  addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**") // --1
-                .addResourceLocations("file:///gangnampro2/image/upload"); //--2
+                .addResourceLocations("file:///Users/user/git/gangnampro2/src/main/resources/static/image"); //--2
     }
 
 }
