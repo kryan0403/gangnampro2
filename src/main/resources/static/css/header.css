@@ -45,3 +45,10 @@ footer{
 html, body {
 	height:100%
 }
+div {
+	margin-bottom : 10px;
+}
+td {
+	padding : 10px;
+	text-align : center;
+}

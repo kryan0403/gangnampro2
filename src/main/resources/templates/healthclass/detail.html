@@ -41,29 +41,31 @@
 <div class="content">
 	<a>강좌 썸네일 : </a><ul class="image-thumbnail" id="image-thumbnail"></ul>
 </div>
-
-<input type="button" sec:authorize="isAuthenticated()" value="수강신청"/>
-<input type="button" sec:authorize="isAuthenticated()" value="강의참여"/>
-<input type="button" sec:authorize="isAuthenticated()" value="관심등록"/>
+<div>
+<input type="button" value="수강신청" sec:authorize="isAuthenticated()" />
+<input type="button" value="강의참여" sec:authorize="isAuthenticated()" />
+<input type="button" value="관심등록" sec:authorize="isAuthenticated()" />
 <input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
 <input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
 <input type="button" value="목록으로" th:onclick="'location.href=\''+ @{/healthclass/All/1} + '\''" />
-
+</div>
 <div>
 <form action="/classnotice/write.do" method="post">
 <a>공지작성</a><input type="textarea" style="width: 700px; height: 80px;" name="clnContent" id="clnContent" />
 <input type="hidden" name="clnClno" th:value="${healthclass.clNo}"/>
 <input type="submit" value="공지등록" />
 </form>
+</div>
+<div>
 <table class="board-table">
             <thead>
             <td>공지번호</td>
-            <td style="text-align:center; width: 500px;">공지내용</td>
+            <td style="width: 500px;">공지내용</td>
             <td>작성시간</td>
             </thead>
             <tbody>
                 <tr th:each = "classnotice:${noticelist}">
-                	<td th:text="${classnotice.clnNo}"></td>
+                	<td th:text="${classnotice.clnNo}" style="text-align:center;"></td>
                 	<td style="text-align:center; width: 500px; height:50px;" th:text="${classnotice.clnContent}"></td>
                 	<td th:text="${classnotice.clnDate}"></td>
                     <td><button
