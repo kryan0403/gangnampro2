@@ -5,33 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-function back(){
-     history.back();
-}
-</script>
 </head>
 <body>
-<div align="right">
-<div sec:authorize="isAnonymous()">
-<button onclick="location.href='/login'">로그인</button>
-<button onclick="location.href='/register'">회원가입</button>
-</div>
-<div sec:authorize="isAuthenticated()">
-<button onclick="location.href='/myPage'">마이페이지</button>
-<button onclick="location.href='/logout'">로그아웃</button>
-</div>
-</div>
-<div>
-	<h1><a href="/main"><img src="/image/airplane.png" alt="로고" style="weight: 100px; height:100px;"></a></h1>
-</div>
-<div class="topMenu" >
-	<ul class="menu">
-		<li class="li"><a class="menuLink" href="">메뉴1</a></li>
-		<li class="li"><a class="menuLink" href="">메뉴2</a></li>
-		<li class="li"><a class="menuLink" href="">메뉴3</a></li>
-	</ul>
-</div>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
 	<div class="container" align="center">
 		<h2 class="text-primary">강좌 작성</h2>
 		<form action="/healthclass/insert" method="post" enctype="multipart/form-data"
@@ -59,7 +36,7 @@ function back(){
 					<td><textarea rows="5" cols="30" name="clIntro" required="required" style="width: 900px; height: 450px;"></textarea></td>
 				</tr>
 				<tr>
-					<td>강좌일</td>
+					<td>강좌 요일</td>
 					<td>
 					<select class="box" name="clDay" id="clDay">
 						<option value="" selected disabled hidden>선택</option>
@@ -110,8 +87,13 @@ function back(){
 			</table>
 		</form>
 	</div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 <script>
+function back(){
+    history.back();
+}
 function getImageFilesProfile(e) {
     const files = e.currentTarget.files;
     const imagePreview = document.querySelector('.profile-preview');

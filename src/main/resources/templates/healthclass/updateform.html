@@ -13,26 +13,8 @@ function back(){
 </script>
 </head>
 <body>
-<div align="right">
-<div sec:authorize="isAnonymous()">
-<button onclick="location.href='/login'">로그인</button>
-<button onclick="location.href='/register'">회원가입</button>
-</div>
-<div sec:authorize="isAuthenticated()">
-<button onclick="location.href='/myPage'">마이페이지</button>
-<button onclick="location.href='/logout'">로그아웃</button>
-</div>
-</div>
-<div>
-	<h1><a href="/main"><img src="/image/airplane.png" alt="로고" style="weight: 100px; height:100px;"></a></h1>
-</div>
-<div class="topMenu" >
-	<ul class="menu">
-		<li class="li"><a class="menuLink">메뉴1</a></li>
-		<li class="li"><a class="menuLink">메뉴2</a></li>
-		<li class="li"><a class="menuLink">메뉴3</a></li>
-	</ul>
-</div>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
 	<div class="container" align="center">
 		<h2 class="text-primary">강좌 수정</h2>
 		<form th:action="@{/healthclass/update/{cl_no}(cl_no=${healthclass.clNo})}" method="post" name="frm"
@@ -119,6 +101,8 @@ function back(){
 			</table>
 		</form>
 	</div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 <script th:inline="javascript">
 function goBack() {

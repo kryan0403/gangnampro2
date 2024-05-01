@@ -29,15 +29,8 @@ public class HealthclassController {
 	private HealthclassService hs;
 	
 	String realpath = "C:\\gangnampro2/image/upload";
-	
-	@RequestMapping("/")
-	public String init() {
-		return "index.html";
-	}
-	@RequestMapping("index")
-	public String init2() {
-		return "index.html";
-	}
+
+
 	@RequestMapping("/healthclass")
 	public String lecture() {
 		return "redirect:healthclass/All/1";

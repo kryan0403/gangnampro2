@@ -2,6 +2,7 @@ package com.project2.hct.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {
@@ -15,5 +16,9 @@ public class TestController {
 	public String mainP() {
 		return "main";
 	}
-
+	
+	@RequestMapping("/")
+	public String init() {
+		return "main";
+	}
 }

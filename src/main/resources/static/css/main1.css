@@ -3,11 +3,13 @@
 	color: inherit;
 	text-decoration-line: none;
 }
+
 .container{
 	width: 90%;
     margin: 10px auto;
-    display: flex;
+	
 }
+
 .MainboardList{
 	flex:1;
     width:30%;

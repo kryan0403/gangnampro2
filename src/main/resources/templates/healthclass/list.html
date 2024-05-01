@@ -2,36 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org" 
 		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+
 <link rel="stylesheet" href="/css/header.css">
-<link href="/css/lecturelist/lecturelist.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main1.css">
+<link rel="stylesheet" href="/css/lecturelist/lecturelist.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+window.onload = function() {
+	var searchKeyword = document.getElementById("searchKeyword");
+	var searchDay = document.getElementById("searchDay");
+	var searchCategory = document.getElementById("searchCategory");
+	searchDay.style.display = "none";
+	searchCategory.addEventListener('change', (event) =>{
+		if ( searchCategory.value == "강좌명"  || searchCategory.value == "강사명") {
+			searchKeyword.style.display = "inline-block";
+			searchDay.style.display = "none";
+		}	
+		else {
+			searchKeyword.value = "";
+			searchKeyword.style.display = "none";
+			searchDay.style.display = "inline-block";
+		}
+	});
+}
+
+</script>
+
 <body>
-<div align="right">
-<div sec:authorize="isAnonymous()">
-<button onclick="location.href='/login'">로그인</button>
-<button onclick="location.href='/register'">회원가입</button>
-</div>
-<div sec:authorize="isAuthenticated()">
-<button onclick="location.href='/myPage'">마이페이지</button>
-<button onclick="location.href='/logout'">로그아웃</button>
-</div>
-</div>
-<div>
-	<h1><a href="/main"><img src="/image/airplane.png" alt="로고" style="weight: 100px; height:100px;"></a></h1>
-</div>
-<div class="topMenu" >
-	<ul class="menu">
-		<li class="li"><a class="menuLink">메뉴1</a></li>
-		<li class="li"><a class="menuLink">메뉴2</a></li>
-		<li class="li"><a class="menuLink">메뉴3</a></li>
-	</ul>
-</div>
-    <div class="container" align="center">
-        <h1 calss="text-primary" th:text="|강좌리스트(${listCategory})|"></h1>
+<div class="wrapper">
+<th:block layout:fragment="header" th:replace="~{/header}"></th:block>
+    <div class="container">
+        <h1 align="center" th:text="|강좌리스트(${listCategory})|"></h1>
     </div>
         <input type="button" value="전체" onclick="location.href='/healthclass/All/1'" />
         <input type="button" value="요가" onclick="location.href='/healthclass/Yoga/1'" />
@@ -40,7 +47,7 @@
         <input type="button" value="시니어" onclick="location.href='/healthclass/Senior/1'" />
         <input type="button" value="재활" onclick="location.href='/healthclass/Rehabilitation/1'" />
         </br>
-        <div class="container" align="center">
+    <div>
         <table class="board-table">
             <thead>
                 <tr>
@@ -90,7 +97,7 @@
   		<option value="강사명">강사명</option>
   		<option value="요일">요일</option>
 	</select>
-	<input type="text" name="searchKeyword" id="searchKeyword" placeholder="입력" />
+	<input type="text" name="searchKeyword" id="searchKeyword" placeholder="입력" minlength="2"/>
 	<select class="box" name="searchDay" id="searchDay">
 		<option value="Monday">Monday</option>
   		<option value="Tuesday">Tuesday</option>
@@ -104,25 +111,10 @@
 	<input type="hidden" name="listCategory" th:value="${listCategory}"/>
 	<input type="submit" value="검색">
 	</form>
-	<input type="button" value="글작성" onclick="location.href='/healthclass/insertform'" />
+	<input type="button" value="강좌 작성" onclick="location.href='/healthclass/insertform'" />
 </div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
-<script>
-$(document).ready(function() {
-	$("#searchKeyword").show();
-	$("#searchDay").hide();
-	$("#searchCategory").change(function(){
-		var selectedCategory = $("#searchCategory").val();
-		if ( selectedCategory == "강좌명" || selectedCategory == "강사명") {
-			$("#searchKeyword").show();
-			$("#searchDay").hide();
-		}
-		else  {
-			$("#searchKeyword").val("");
-			$("#searchKeyword").hide();
-			$("#searchDay").show();
-		}
-	});
-});
-</script>
+
 </html>

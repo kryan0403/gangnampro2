@@ -10,26 +10,8 @@
 </head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <body>
-<div align="right">
-<div sec:authorize="isAnonymous()">
-<button onclick="location.href='/login'">로그인</button>
-<button onclick="location.href='/register'">회원가입</button>
-</div>
-<div sec:authorize="isAuthenticated()">
-<button onclick="location.href='/myPage'">마이페이지</button>
-<button onclick="location.href='/logout'">로그아웃</button>
-</div>
-</div>
-<div>
-	<h1><a href="/main"><img src="/image/airplane.png" alt="로고" style="weight: 100px; height:100px;"></a></h1>
-</div>
-<div class="topMenu" >
-	<ul class="menu">
-		<li class="li"><a class="menuLink">메뉴1</a></li>
-		<li class="li"><a class="menuLink">메뉴2</a></li>
-		<li class="li"><a class="menuLink">메뉴3</a></li>
-	</ul>
-</div>
+<div class="wrapper">
+<th:block layout:fragment="header" th:replace="~{/header}"></th:block>
     <div class="container" align="center">
         <h1 calss="text-primary" th:text="|검색결과(${listCategory})|"></h1>
         <table class="board-table">
@@ -89,7 +71,7 @@
   		<option value="요일" th:selected="${searchCategory} == '요일'">요일</option>
 	</select>
 	<input type="text" name="searchKeyword" id="searchKeyword" placeholder="입력" 
-	th:value="${searchKeyword}"/>
+	th:value="${searchKeyword}" minlength="2"/>
 	<select class="box" name="searchDay" id="searchDay">
 		<option value="Monday" th:selected="${searchDay} == 'Monday'">Monday</option>
   		<option value="Tuesday" th:selected="${searchDay} == 'Tuesday'">Tuesday</option>
@@ -105,33 +87,33 @@
 	</form>
 	<input type="button" value="목록으로" th:onclick="'location.href=\''+ @{/healthclass/{listCategory}/1(listCategory=${listCategory})} + '\''" />
 </div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 <script th:inline="javascript">
-$(document).ready(function() {
+window.onload = function() {
 	var searchCategory = /*[[${searchCategory}]]*/'기본값';
-	console.log(searchCategory);
+	var searchKeyword = document.getElementById("searchKeyword");
+	var searchDay = document.getElementById("searchDay");
 	if ( "요일" == searchCategory ) {
-		
-		$("#searchKeyword").hide(); //1
-		$("#searchDay").show();     //2
-
-	} else {
-		$("#searchKeyword").show(); //1
-		$("#searchDay").hide();     //2
+		searchKeyword.style.display = "none";
+		searchDay.style.display = "inline-block";
 	}
-	$("#searchCategory").change(function(){
-		var selectedCategory = $("#searchCategory").val();
-		if ( selectedCategory == "강좌명" || selectedCategory == "강사명") {
-			$("#searchKeyword").show();
-			$("#searchDay").hide();
-		}
+	else {
+		searchKeyword.style.display = "inline-block";
+		searchDay.style.display = "none";
+	}
+	document.getElementById("searchCategory").addEventListener('change', (event) =>{
+		if ( document.getElementById("searchCategory").value == "강좌명"  || document.getElementById("searchCategory").value == "강사명") {
+			searchKeyword.style.display = "inline-block";
+			searchDay.style.display = "none";
+		}	
 		else {
-			$("#searchKeyword").val("");
-			$("#searchKeyword").hide();
-			$("#searchDay").show();
+			searchKeyword.value = "";
+			searchKeyword.style.display = "none";
+			searchDay.style.display = "inline-block";
 		}
-	}); 
-	
-});
+	});
+}
 </script>
 </html>
