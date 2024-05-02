@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/header.css">
 <title>Insert title here</title>
 </head>
+
 <body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
 	사업자 회원 등록
 	<hr>
 	<form action="/b_join" method="post" name=b_joinForm>
@@ -23,5 +27,7 @@
 			<tr><td><input type="submit" value="b_join/"></td></tr>
 		</table>
 	</form>
+	</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 </html>

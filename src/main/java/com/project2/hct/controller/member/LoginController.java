@@ -33,7 +33,7 @@ public class LoginController {
 		model.addAttribute("id", id);
 		model.addAttribute("role", role);
 		
-		return "member/main";
+		return "main";
 	}
 
 }

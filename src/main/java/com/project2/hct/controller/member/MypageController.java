@@ -14,18 +14,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/member")
 public class MypageController {
 	
 	@Autowired
 	private MypageService mypageService;
 	
-	@GetMapping("mypage")
+	@GetMapping("MyPage")
 	public String mypage(HttpServletRequest hsr, HttpServletResponse response, Authentication auth, Model model) {
 		
 		if(auth != null) {
 			String id = auth.getName();
-			System.out.println("id = "+id);
+			System.out.println("mypage id = "+id);
 			Member member = mypageService.getMember(id);
 			model.addAttribute("member",member);
 			return "member/mypage";

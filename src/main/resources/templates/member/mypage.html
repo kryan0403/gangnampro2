@@ -2,27 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/header.css">
 <title>Insert title here</title>
-<script>
-$(document).ready(function(){
-	UpdateUser();
-});
 
-// function UpdateUser(){
-// 	$.ajax({
-// 		type:
-		
-// 	});
-	
-// }
-
-</script>
 </head>
 <body>
-
-mypage
-<div th:text="${member.memId}"></div>
-<div th:text="${member.memRole}"></div>
-
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+	mypage
+	<div th:text="${member.memId}"></div>
+	<div th:text="${member.memRole}"></div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 </html>

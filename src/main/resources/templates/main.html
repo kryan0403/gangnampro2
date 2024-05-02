@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,6 +74,7 @@ $(function(){
 <body>
 <div class="wrapper">
 <th:block layout:fragment="header" th:include="@{/header}"></th:block>
+	<h4 th:value="${id}"></h4>
 	<div style="padding:15px 25px; background-color: skyblue;">
 		<div class='slider-div' id="LiveList">
 			<div th:each="list :${livelist}">

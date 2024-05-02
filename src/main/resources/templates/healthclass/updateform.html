@@ -19,6 +19,7 @@ function back(){
 		<h2 class="text-primary">강좌 수정</h2>
 		<form th:action="@{/healthclass/update/{cl_no}(cl_no=${healthclass.clNo})}" method="post" name="frm"
 			onsubmit="return chk()" enctype="multipart/form-data">
+			<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 			<table class="table table-striped">			
 				<tr>
 					<td>강좌타입</td>

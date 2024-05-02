@@ -9,6 +9,12 @@
 <title>Insert title here</title>
 
 </head>
+<style>
+	td {
+	padding : 10px;
+	text-align : center;
+}
+</style>
 <body>
 <div class="wrapper">
 <th:block layout:fragment="header" th:include="@{/header}"></th:block>
@@ -51,6 +57,7 @@
 </div>
 <div>
 <form action="/classnotice/write.do" method="post">
+<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 <a>공지작성</a><input type="textarea" style="width: 700px; height: 80px;" name="clnContent" id="clnContent" />
 <input type="hidden" name="clnClno" th:value="${healthclass.clNo}"/>
 <input type="submit" value="공지등록" />

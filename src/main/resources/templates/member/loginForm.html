@@ -2,16 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/header.css">
 <title>Insert title here</title>
 </head>
 <body>
-loginForm page
-<hr>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+	loginForm page<hr>
 	<form action="/login" method="post" name="loginForm">
+	<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 		<input type="text" id="memId" name="memId" placeholder="memId">
 		<input type="text" id="memPw" name="memPw" placeholder="password">
-		<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
+		
 		<input type="submit" value="로그인">
 	</form>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 </html>

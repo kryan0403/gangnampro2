@@ -92,6 +92,7 @@ window.onload = function() {
 </nav>
 <div>
 <form action="/healthclass/search" method="get">
+<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 	<select class="box" name="searchCategory" id="searchCategory">
   		<option value="강좌명">강좌명</option>
   		<option value="강사명">강사명</option>

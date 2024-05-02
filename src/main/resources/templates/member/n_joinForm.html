@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/header.css">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
 	일반 회원 등록
 	<hr>
 	<form action="/n_join" method="post" name="n_joinForm">
@@ -19,5 +22,7 @@
 			<tr><td><input type="submit" value="n_join/"></td></tr>
 		</table>
 	</form>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 </html>

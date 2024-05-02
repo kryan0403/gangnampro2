@@ -13,6 +13,7 @@
 		<h2 class="text-primary">강좌 작성</h2>
 		<form action="/healthclass/write" method="post" enctype="multipart/form-data"
 			onsubmit="return checkTypeDay()">
+			<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 			<table class="table table-striped">	
 				<tr>
 					<td>강좌타입</td>
