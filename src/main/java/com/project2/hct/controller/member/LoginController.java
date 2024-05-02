@@ -18,7 +18,7 @@ public class LoginController {
 		return "member/loginForm";
 	}
 
-	@GetMapping("/main")
+	@GetMapping("/mainP")
 	public String main(Model model) {
 		
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();	//아이디값
@@ -33,7 +33,7 @@ public class LoginController {
 		model.addAttribute("id", id);
 		model.addAttribute("role", role);
 		
-		return "main";
+		return "member/main";
 	}
 
 }

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:include="@{/header}"></th:block>
 admin page
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
 </body>
 </html>

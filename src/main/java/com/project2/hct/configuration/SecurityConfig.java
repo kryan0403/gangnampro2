@@ -7,10 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
 	
 	//비밀번호 암호화
 	@Bean
@@ -26,24 +28,24 @@ public class SecurityConfig {
 		HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
 		requestCache.setMatchingRequestParameterName(null);
 		http
-				.requestCache(request-> request
-						.requestCache(requestCache))
-				.authorizeHttpRequests((auth)-> auth
-						.requestMatchers("/","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
-						.requestMatchers("/css/**", "/images/**").permitAll()
-						.requestMatchers("/admin").hasRole("ADMIN")
-						.requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-						.anyRequest().authenticated()
-				);
+			.requestCache(request-> request
+				.requestCache(requestCache))
+			.authorizeHttpRequests((auth)-> auth
+					.requestMatchers("/testP","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
+					.requestMatchers("/css/**", "/images/**").permitAll()
+					.requestMatchers("/admin").hasRole("ADMIN")
+					.requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
+					.anyRequest().authenticated()
+		);
 		
 		//권한 필요한 페이지 접속 시 로그인 창이 뜨도록
 		http
-				.formLogin((auth)->auth.loginPage("/loginForm")
-						.loginProcessingUrl("/login")
-						.defaultSuccessUrl("/main")
-						.usernameParameter("memId")
-						.passwordParameter("memPw")
-				);
+			.formLogin((auth)->auth.loginPage("/loginForm")
+					.loginProcessingUrl("/login")
+					.defaultSuccessUrl("/mainP")
+					.usernameParameter("memId")
+					.passwordParameter("memPw")
+		);
 		
 		// 로그아웃
 		http
@@ -51,8 +53,8 @@ public class SecurityConfig {
 						.logoutSuccessUrl("/"));
 		
 //		csrf: 위조 방지용 > 원래 login 시 csrf 토큰도 보내주어야 로그인이 정상적으로 진행이 됨 > 개발단계에서는 일단 이 설정을 off해둠
-//		http
-//				.csrf((auth)-> auth.disable());
+		http
+				.csrf((auth)-> auth.disable());
 		
 		// 다중 로그인 관련 처리
 		http	

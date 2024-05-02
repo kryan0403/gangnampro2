@@ -16,7 +16,11 @@ public class TestController {
 	public String init2() {
 		return "main";
 	}
-
+	
+	@RequestMapping("/testP")
+	public String test() {
+		return "test";
+	}
 	@RequestMapping("/mainPage")
 	public String init3() {
 		return "redirect:healthclass/All/1";

@@ -48,13 +48,28 @@
 	<a>강좌 썸네일 : </a><ul class="image-thumbnail" id="image-thumbnail"></ul>
 </div>
 <div>
-<input type="button" value="수강신청" sec:authorize="isAuthenticated()" />
-<input type="button" value="강의참여" sec:authorize="isAuthenticated()" />
-<input type="button" value="관심등록" sec:authorize="isAuthenticated()" />
-<input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
-<input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.clNo})} + '\''" />
+<input type="button" value="수강신청" sec:authorize="isAuthenticated()" 
+									/>
+<input type="button" value="관심등록" sec:authorize="isAuthenticated()" 
+									/>
+<input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.clNo})} + '\''" 
+									/>
+<input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.clNo})} + '\''" 
+									/>
 <input type="button" value="목록으로" th:onclick="'location.href=\''+ @{/healthclass/All/1} + '\''" />
 </div>
+<form action="/videoroomtest" method="post" target="_blank">
+<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
+	<input type="hidden" name="liveClno" th:value="${healthclass.clNo}">
+	<input type="hidden" name="liveName" th:value="${healthclass.clName}">
+	<input type="hidden" name="liveThumbnail" th:value="${healthclass.clThumbnail}">
+	<input type="submit" value="강의시작">
+</form>
+<form action="/videoroomsstu" method="post" target="_blank">
+<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
+	<input type="hidden" name="liveClno" th:value="${healthclass.clNo}">
+	<input type="submit" value="강의듣기">
+</form>
 <div>
 <form action="/classnotice/write.do" method="post">
 <input type="hidden" name="_csrf" th:value="${_csrf?.token}">

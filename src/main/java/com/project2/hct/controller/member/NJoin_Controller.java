@@ -36,7 +36,7 @@ public class NJoin_Controller {
 		joinService.n_join(joinDto);
 		
 		//회원가입 완료 후 바로 로그인 페이지로 이동하도록
-		return "redirect:member/loginForm";
+		return "redirect:loginForm";
 	}
 	
 }
