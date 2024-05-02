@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	사업자 회원 등록
+	<hr>
+	<form action="/b_join" method="post" name=b_joinForm>
+		<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
+		<table>
+			<tr><td><input type="text" id="memId" name="memId" placeholder="id"></td></tr>
+			<tr><td><input type="text" id="memPw" name="memPw" placeholder="password"></td></tr>
+			<tr><td><input type="text" id="memNick" name="memNickname" placeholder="memNick"></td></tr>
+			<tr><td><input type="text" id="memName" name="memName" placeholder="memName"></td></tr> 
+			<tr><td><input type="text" id="memBirth" name="memBirth" placeholder="memBirth"></td></tr>
+			<tr><td><input type="text" id="memTel" name="memTel" placeholder="memTel"></td></tr>
+			<tr><td>자격증 등록</td></tr>
+			<tr><td><input type="text" id="certName" name="certName" placeholder="certName"></td></tr>
+			<tr><td><input type="text" id="certReg" name="certReg" placeholder="certReg"></td></tr>
+			<tr><td><input type="text" id="certDepart" name="certDepart" placeholder="certDepart"></td></tr>
+			<tr><td><input type="submit" value="b_join/"></td></tr>
+		</table>
+	</form>
+</body>
+</html>
