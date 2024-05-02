@@ -12,11 +12,6 @@ public class TestController {
 		return "test";
 	}
 	
-	@GetMapping("/main")
-	public String mainP() {
-		return "main";
-	}
-	
 	@RequestMapping("/")
 	public String init() {
 		return "main";
