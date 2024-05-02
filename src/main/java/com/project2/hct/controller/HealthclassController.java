@@ -135,6 +135,7 @@ public class HealthclassController {
 		return "healthclass/detail.html";
 	}
 	
+	
 	@RequestMapping("healthclass/delete/{clNo}")
 	public String delete(@PathVariable("clNo") String clNo) throws IOException {
 		clNo += "(";

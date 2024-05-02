@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +23,11 @@ public class SecurityConfig {
 	//내부에는 특정 요청에 대한 처리 해줌 (인가)
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{	
+		HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+		requestCache.setMatchingRequestParameterName(null);
 		http
+				.requestCache(request-> request
+						.requestCache(requestCache))
 				.authorizeHttpRequests((auth)-> auth
 						.requestMatchers("/","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
 						.requestMatchers("/css/**", "/images/**").permitAll()
