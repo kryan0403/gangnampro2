@@ -8,12 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestController {
 	
 	@GetMapping("/test")
-	public String main() {
+	public String init1() {
 		return "test";
 	}
 	
 	@RequestMapping("/")
-	public String init() {
+	public String init2() {
 		return "main";
+	}
+
+	@RequestMapping("/mainPage")
+	public String init3() {
+		return "redirect:healthclass/All/1";
 	}
 }
