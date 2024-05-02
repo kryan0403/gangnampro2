@@ -25,7 +25,7 @@ $(document).ready(function() {
 	// Initialize the library (all console debuggers enabled)
 	Janus.init({debug: "all", callback: function() {
 		// Use a button to start the demo
-		$('#start').one('click', function() {
+//		$('#start').one('click', function() {
 
 			$(this).attr('disabled', true).unbind('click');
 			// Make sure the browser supports WebRTC
@@ -53,11 +53,11 @@ $(document).ready(function() {
 									$('#registernow').removeClass('hide').show();
 									$('#register').click(registerUsername);
 									$('#roomname').focus();
-									$('#start').removeAttr('disabled').html("Stop")
-										.click(function() {
-											$(this).attr('disabled', true);
-											janus.destroy();
-										});
+//									$('#start').removeAttr('disabled').html("Stop")
+//										.click(function() {
+//											$(this).attr('disabled', true);
+//											janus.destroy();
+//										});
 
                     Janus.log("Room List > ");
                     //roomList();
@@ -165,7 +165,7 @@ $(document).ready(function() {
 												var leaving = msg["leaving"];
 												Janus.log("Publisher left: " + leaving);
 												var remoteFeed = null;
-												for(var i=1; i<6; i++) {
+												for(var i=1; i<8; i++) {
 													if(feeds[i] && feeds[i].rfid == leaving) {
 														remoteFeed = feeds[i];
 														break;
@@ -308,7 +308,7 @@ $(document).ready(function() {
 						window.location.reload();
 					}
 				});
-		});
+//		});
 	}});
 });
 
@@ -365,14 +365,14 @@ function registerUsername() {
 			$('#register').removeAttr('disabled').click(registerUsername);
 			return;
 		}
-		if(/[^a-zA-Z0-9]/.test(username)) {
-			$('#you')
-				.removeClass().addClass('label label-warning')
-				.html('닉네임은 영문만 가능합니다.');
-			$('#username').removeAttr('disabled').val("");
-			$('#register').removeAttr('disabled').click(registerUsername);
-			return;
-		}
+//		if(/[^a-zA-Z0-9]/.test(username)) {
+//			$('#you')
+//				.removeClass().addClass('label label-warning')
+//				.html('닉네임은 영문만 가능합니다.');
+//			$('#username').removeAttr('disabled').val("");
+//			$('#register').removeAttr('disabled').click(registerUsername);
+//			return;
+//		}
 
         //alert("room id:" + roomname);
         myroom = Number(roomname); //사용자 입력 방 아이디

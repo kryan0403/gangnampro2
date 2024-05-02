@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/lecturelist/lecturelist.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+window.onload = function() {
+	var searchKeyword = document.getElementById("searchKeyword");
+	var searchDay = document.getElementById("searchDay");
+	var searchCategory = document.getElementById("searchCategory");
+	searchDay.style.display = "none";
+	searchCategory.addEventListener('change', (event) =>{
+		if ( searchCategory.value == "강좌명"  || searchCategory.value == "강사명") {
+			searchKeyword.style.display = "inline-block";
+			searchDay.style.display = "none";
+		}	
+		else {
+			searchKeyword.value = "";
+			searchKeyword.style.display = "none";
+			searchDay.style.display = "inline-block";
+		}
+	});
+}
+
+</script>
+
+<body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:replace="~{/header}"></th:block>
+    <div class="container">
+        <h1 align="center" th:text="|강좌리스트(${listCategory})|"></h1>
+    </div>
+        <input type="button" value="전체" onclick="location.href='/healthclass/All/1'" />
+        <input type="button" value="요가" onclick="location.href='/healthclass/Yoga/1'" />
+        <input type="button" value="필라테스" onclick="location.href='/healthclass/Pilates/1'" />
+        <input type="button" value="헬스" onclick="location.href='/healthclass/Health/1'" />
+        <input type="button" value="시니어" onclick="location.href='/healthclass/Senior/1'" />
+        <input type="button" value="재활" onclick="location.href='/healthclass/Rehabilitation/1'" />
+        </br>
+    <div>
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th class="th-date">강좌타입</th>
+                    <th class="th-title">강좌명</th>
+                    <th>강사명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each = "healthclass:${selectlist}">
+                	<td th:text="${healthclass.clType}"></td>
+                    <td>
+                    <a th:text="${healthclass.clName}" th:href="@{/healthclass/detail/{cl_no}(cl_no=${healthclass.clNo})}"></a></td>
+                    <td th:text="${healthclass.clMemid}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav style="text-align: center;">
+    <ul class="paging">
+    <li class="active" th:if="${pp.currentPage >= 1}">
+        	<a class="a" th:href="@{/healthclass/{listCategory}/1(listCategory=${listCategory})}">1페이지로</a>
+        </li>
+        <li class="active" th:if="${pp.startPage < pp.currentPage }">
+        	<a class="a" th:href="@{/healthclass/{listCategory}/{cur2}(cur2=${pp.currentPage}, listCategory=${listCategory})}"></a>
+        </li>
+        <li class="active" th:if="${pp.currentPage > pp.pagePerBlk }">
+		 	<a class="a" th:href="@{/healthclass/{listCategory}/{curminus}(curminus=${pp.currentPage - pp.pagePerBlk}, listCategory=${listCategory})}">이전</a>
+		 </li>
+        <li class="active" th:each="page:${#numbers.sequence(pp.startPage, pp.endPage)}">
+        	<a class="a" th:text="${page}" th:href="@{/healthclass/{listCategory}/{page}(page=${page}, listCategory=${listCategory})}"></a>
+       
+        </li>
+
+        <li class="active" th:if="${pp.endPage < pp.totalPage}">
+            <a class="a" th:href="@{/healthclass/{listCategory}/{endplusOne}(endplusOne=${pp.endPage + 1}, listCategory=${listCategory})}">다음</a>
+		</li>
+		<li class="active">
+            <a class="a" th:href="@{/healthclass/{listCategory}/{total}(total=${pp.totalPage}, listCategory=${listCategory})}">마지막페이지로</a>
+		</li>
+    </ul>
+</nav>
+<div>
+<form action="/healthclass/search" method="get">
+	<select class="box" name="searchCategory" id="searchCategory">
+  		<option value="강좌명">강좌명</option>
+  		<option value="강사명">강사명</option>
+  		<option value="요일">요일</option>
+	</select>
+	<input type="text" name="searchKeyword" id="searchKeyword" placeholder="입력" minlength="2"/>
+	<select class="box" name="searchDay" id="searchDay">
+		<option value="Monday">Monday</option>
+  		<option value="Tuesday">Tuesday</option>
+  		<option value="Wednsday">Wednsday</option>
+  		<option value="Thursday">Thursday</option>	
+  		<option value="Friday">Friday</option>
+  		<option value="Saturday">Saturday</option>
+  		<option value="Sunday">Sunday</option>	
+	</select>
+	<input type="hidden" name="pageNum" value="1" /> 
+	<input type="hidden" name="listCategory" th:value="${listCategory}"/>
+	<input type="submit" value="검색">
+	</form>
+	<input type="button" value="강좌 작성" onclick="location.href='/healthclass/writeform'" />
+</div>
+</div>
+<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+</body>
+
+</html>
