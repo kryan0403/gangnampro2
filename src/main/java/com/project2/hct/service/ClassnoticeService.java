@@ -33,8 +33,8 @@ public class ClassnoticeService {
 				.map(data -> mm.map(data, ClassnoticeDTO.class))
 				.collect(Collectors.toList());
 	}
-	public void delete(String clnNo) {
-		cr.deleteById(Long.parseLong(clnNo));
+	public void delete(String clNo) {
+		cr.deleteByClnClno(clNo);
 		
 	}
 }

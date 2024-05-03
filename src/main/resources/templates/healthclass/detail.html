@@ -95,7 +95,7 @@
                 	<td th:text="${classnotice.clnNo}" style="text-align:center;"></td>
                 	<td style="text-align:center; width: 500px; height:50px;" th:text="${classnotice.clnContent}"></td>
                 	<td th:text="${classnotice.clnDate}"></td>
-                    <td><button
+                    <td><button sec:authorize = "isAuthenticated()" 
                      th:onclick="'location.href=\''+@{/classnotice/delete/{clnClno}/{clnNo}(clnClno=${healthclass.clNo}, clnNo=${classnotice.clnNo})} + '\''">공지삭제</button></td>
                 </tr>
             </tbody>

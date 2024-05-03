@@ -151,6 +151,7 @@ public class HealthclassController {
 		HealthclassDTO healthclassDTO = hs.findByClNo(clNo);
 		upload_delete(clNo, healthclassDTO.getClProfile());
 		upload_delete(clNo, healthclassDTO.getClThumbnail());
+		cs.delete(clNo);
 		hs.delete(clNo);        
 		return "healthclass/deleteSuccess.html";
 	}
