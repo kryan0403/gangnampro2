@@ -76,7 +76,7 @@ $(function(){
 	<div style="padding:15px 25px; background-color: skyblue;">
 		<div class='slider-div' id="LiveList">
 			<div th:each="list :${livelist}">
-				<a href="">
+				<a href="/healthclass/detail/${list.liveClno}">
 	  			<image src="[[${list.liveThumbnail}]]" style="width:200px; height:200px;"/>
 	  			</a>[[${list.liveName}]]
 			</div>

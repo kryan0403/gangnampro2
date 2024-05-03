@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project2.hct.dto.HealthclassDTO;
 import com.project2.hct.dto.LiveroomDTO;
 import com.project2.hct.entity.Liveroom;
 import com.project2.hct.repository.LiveroomRepository;
@@ -20,6 +21,10 @@ public class LiveroomService {
 	public void save(LiveroomDTO liveroomDTO) {
 		//모델맵퍼 -> dto를 entity로 변환
 		liveroomrepository.save(mm.map(liveroomDTO, Liveroom.class));
+	}
+	
+	public void delete(String live_clno) {	
+		liveroomrepository.delete(live_clno);
 	}
 
 	public List<Liveroom> getList() {
