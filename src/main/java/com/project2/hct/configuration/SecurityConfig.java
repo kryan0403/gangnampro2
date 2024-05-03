@@ -31,7 +31,8 @@ public class SecurityConfig {
 			.requestCache(request-> request
 				.requestCache(requestCache))
 			.authorizeHttpRequests((auth)-> auth
-					.requestMatchers("/","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
+					.requestMatchers("/", "main","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join",
+							"/MainboardList", "/noticelist", "/healthclass/**").permitAll()
 					.requestMatchers("/css/**", "/image/**", "favicon.io").permitAll()
 					.requestMatchers("/admin").hasRole("ADMIN")
 					.requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
