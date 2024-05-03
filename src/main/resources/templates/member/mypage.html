@@ -9,7 +9,7 @@
 
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 <div id="edit" class="login" align="center">
 <h2 class="join_title">회원수정</h2>
 <form name="eidtform" method="post" action="/member_edit.do"
@@ -50,7 +50,7 @@
 </form>
 </div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 <script th:inline="javascript">
 var memId = /*[[${memId}]]*/ null;

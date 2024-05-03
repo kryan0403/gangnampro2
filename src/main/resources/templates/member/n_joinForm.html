@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 	일반 회원 등록
 	<hr>
 	<form action="/n_join" method="post" name="n_joinForm">
@@ -23,6 +23,6 @@
 		</table>
 	</form>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 </html>

@@ -4,6 +4,11 @@
 <head>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/healthclass/detail.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -17,7 +22,7 @@
 </style>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 <div class="title-row" align="center">
 	<div class="title">
 		<a th:text="${healthclass.clName}"></a>
@@ -97,7 +102,7 @@
         </table>
 </div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 <script th:inline="javascript">
 function classnoticeWrite() {

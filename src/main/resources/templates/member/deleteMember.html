@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 <div class="login" align="center">
 <form method='post' action="/deleteMember.do">
 	<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
@@ -26,6 +26,6 @@
 </form>
 </div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 </html>

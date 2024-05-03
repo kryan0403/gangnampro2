@@ -7,34 +7,20 @@
 <title>main page</title>
 <link rel="stylesheet" href="../css/header.css">
 <link rel="stylesheet" href="../css/main.css">
+
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
 	MainboardList();
 });
 
-function MainboardList(){
-	$.ajax({
-		type : "GET",
-		url : "/MainboardList",
-		success : function(result){
-			console.log(result);
-			content = "<table class='noticetable'><tr><th colspan='2'>공지사항</th></tr>";
-			$.each(result.nblist,function(index,item){
-				content += "<tr><td><a class='a' href=''>"+item.nbTitle+"</td>";
-				content += "<td>"+moment(item.nbDate).format("YYYY-MM-DD HH:mm:ss")+"</td></tr>";
-			});
-			content += "</table>";
-			
-			$("#MainboardList").html(content);
-		}
-	});
-}
+
 $(function(){
 	$('.slider-div').not('.slick-initialized').slick({
 		slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
@@ -72,16 +58,33 @@ $(function(){
 	});
 })
 
+function MainboardList(){
+	$.ajax({
+		type : "GET",
+		url : "/MainboardList",
+		success : function(result){
+			content = "<table class='noticetable'><tr><th colspan='2'>공지사항</th></tr>";
+			$.each(result.nblist,function(index,item){
+				content += "<tr><td><a class='a' href=''>"+item.nbTitle+"</td>";
+				content += "<td>"+moment(item.nbDate).format("YYYY-MM-DD HH:mm:ss")+"</td></tr>";
+			});
+			content += "</table>";
+			
+			$("#MainboardList").html(content);
+		}
+	});
+}
+
 </script>
 </head>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 	<h4 th:value="${id}"></h4>
 	<div style="padding:15px 25px; background-color: skyblue;">
 		<div class='slider-div' id="LiveList">
 			<div th:each="list :${livelist}">
-				<a href="">
+				<a th:href="@{/healthclass/detail/{clNo}(clNo=${list.liveClno})}">
 	  			<image src="[[${list.liveThumbnail}]]" style="width:200px; height:200px;"/>
 	  			</a>[[${list.liveName}]]
 			</div>
@@ -93,6 +96,6 @@ $(function(){
 		</div>
 	</div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 </html>

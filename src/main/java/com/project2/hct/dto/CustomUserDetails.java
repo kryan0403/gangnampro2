@@ -73,7 +73,15 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		// "Y"이면 활성화된 계정, "N"이면 비활성화된 계정으로 처리
+		if(member.getMemActive().equals("y")) {
+			return true;
+		}else {
+			System.out.println("탈퇴회원");
+			return false;
+		}
+		
+//		return member.getMemActive().equals("y");
 	}
 
 }

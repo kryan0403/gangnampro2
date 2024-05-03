@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 	loginForm page<hr>
 	<form action="/login" method="post" name="loginForm">
 	<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
@@ -17,6 +17,6 @@
 		<input type="submit" value="로그인">
 	</form>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 </html>

@@ -31,8 +31,8 @@ public class SecurityConfig {
 			.requestCache(request-> request
 				.requestCache(requestCache))
 			.authorizeHttpRequests((auth)-> auth
-					.requestMatchers("/testP","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
-					.requestMatchers("/css/**", "/images/**").permitAll()
+					.requestMatchers("/","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
+					.requestMatchers("/css/**", "/image/**").permitAll()
 					.requestMatchers("/admin").hasRole("ADMIN")
 					.requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
 					.anyRequest().authenticated()
@@ -42,7 +42,7 @@ public class SecurityConfig {
 		http
 			.formLogin((auth)->auth.loginPage("/loginForm")
 					.loginProcessingUrl("/login")
-					.defaultSuccessUrl("/mainP")
+					.defaultSuccessUrl("/main")
 					.usernameParameter("memId")
 					.passwordParameter("memPw")
 		);

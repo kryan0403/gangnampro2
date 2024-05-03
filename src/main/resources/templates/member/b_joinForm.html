@@ -8,7 +8,7 @@
 
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 	사업자 회원 등록
 	<hr>
 	<form action="/b_join" method="post" name=b_joinForm>
@@ -28,6 +28,6 @@
 		</table>
 	</form>
 	</div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 </html>

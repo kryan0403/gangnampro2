@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 	<div class="container" align="center">
 		<h2 class="text-primary">강좌 작성</h2>
 		<form action="/healthclass/write" method="post" enctype="multipart/form-data"
@@ -89,7 +89,7 @@
 		</form>
 	</div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 <script>
 function back(){

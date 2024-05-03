@@ -11,7 +11,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:replace="~{/header}"></th:block>
+<th:block layout:fragment="header" th:replace="~{@{/header}}"></th:block>
     <div class="container" align="center">
         <h1 calss="text-primary" th:text="|검색결과(${listCategory})|"></h1>
         <table class="board-table">
@@ -89,7 +89,7 @@
 	<input type="button" value="목록으로" th:onclick="'location.href=\''+ @{/healthclass/{listCategory}/1(listCategory=${listCategory})} + '\''" />
 </div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 <script th:inline="javascript">
 window.onload = function() {

@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="wrapper">
-<th:block layout:fragment="header" th:include="@{/header}"></th:block>
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
 	<div style="float: left; width: 50%" align="center">
 		<a href="n_joinForm">
 		<table>
@@ -33,6 +33,6 @@
 		</a>
 	</div>
 </div>
-<th:block layout:fragment="footer" th:include="@{/footer}"></th:block>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
 </html>
