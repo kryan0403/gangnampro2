@@ -91,12 +91,12 @@ public class HealthclassController {
 		healthclassDTO = hs.findByClNo(clNo.toString());
 		if ( !profile.getOriginalFilename().equals("") ) {
 			hs.updateProfile(clNo.toString(), profile.getOriginalFilename());
-			upload_save(clNo.toString(), profile);
+			upload_save("profile", clNo.toString(), profile);
 				
 		}
 		if ( !thumbnail.getOriginalFilename().equals("") ) {
 			hs.updateThumbnail(clNo.toString(), thumbnail.getOriginalFilename());
-			upload_save(clNo.toString(), thumbnail);
+			upload_save("thumbnail", clNo.toString(), thumbnail);
 			
 		}
 		return "healthclass/writeSuccess.html";
@@ -149,8 +149,8 @@ public class HealthclassController {
 		int idx = clNo.indexOf("(");
 		clNo = clNo.substring(0,idx);
 		HealthclassDTO healthclassDTO = hs.findByClNo(clNo);
-		upload_delete(clNo, healthclassDTO.getClProfile());
-		upload_delete(clNo, healthclassDTO.getClThumbnail());
+		upload_delete("profile", clNo, healthclassDTO.getClProfile());
+		upload_delete("thumbnail", clNo, healthclassDTO.getClThumbnail());
 		cs.delete(clNo);
 		hs.delete(clNo);        
 		return "healthclass/deleteSuccess.html";
@@ -184,19 +184,19 @@ public class HealthclassController {
 		afterDTO.setClNo(Long.parseLong(clNo));
 		afterDTO.setClStart(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
 		
-		upload_delete(clNo, beforeDTO.getClProfile());
-		upload_delete(clNo, beforeDTO.getClThumbnail());
+		upload_delete("profile", clNo, beforeDTO.getClProfile());
+		upload_delete("thumbnail", clNo, beforeDTO.getClThumbnail());
 		hs.save(afterDTO);
 		
 		if ( !profile.getOriginalFilename().equals("") ) {
-			upload_save(clNo, profile);
+			upload_save("profile", clNo, profile);
 			hs.updateProfile(clNo, profile.getOriginalFilename());
 		}
 		else {
 			hs.updateProfileNull(clNo);
 		}
 		if (  !thumbnail.getOriginalFilename().equals("")) {
-			upload_save(clNo, thumbnail);
+			upload_save("thumbnail", clNo, thumbnail);
 			hs.updateProfile(clNo, profile.getOriginalFilename());
 		}
 		else {
@@ -206,17 +206,17 @@ public class HealthclassController {
 		return "healthclass/updateSuccess.html";
 	}
 	
-	public String upload_save(String clNo, MultipartFile file) {
+	public String upload_save(String type,String clNo, MultipartFile file) {
 		try {
-			file.transferTo(new File(clNo + "_" + file.getOriginalFilename()));
+			file.transferTo(new File(type+"/"+clNo + "_" + file.getOriginalFilename()));
 			return "Success";
 		}catch(Exception e) { 
 			return "Fail";
 		}
 		
 	}
-	public String upload_delete(String clNo, String file_name) {
-		File path = new File(realpath+"/");
+	public String upload_delete(String type, String clNo, String file_name) {
+		File path = new File(realpath+"/"+type+"/");
 		try {
 			File[] filelist = path.listFiles();
 			String[] filelist_names = path.list();
