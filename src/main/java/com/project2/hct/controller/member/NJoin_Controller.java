@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project2.hct.dto.JoinDTO;
 import com.project2.hct.service.NJoinService;
@@ -15,7 +14,7 @@ public class NJoin_Controller {
 	@Autowired
 	private NJoinService joinService;
 	
-	@RequestMapping("Join")
+	@GetMapping("joinForm")
 	public String register() {
 	
 		return "member/join01";
@@ -36,7 +35,7 @@ public class NJoin_Controller {
 		joinService.n_join(joinDto);
 		
 		//회원가입 완료 후 바로 로그인 페이지로 이동하도록
-		return "redirect:loginForm";
+		return "member/loginForm";
 	}
 	
 }
