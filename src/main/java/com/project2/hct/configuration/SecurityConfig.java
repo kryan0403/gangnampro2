@@ -32,7 +32,7 @@ public class SecurityConfig {
 				.requestCache(requestCache))
 			.authorizeHttpRequests((auth)-> auth
 					.requestMatchers("/","/loginForm","/login","/Join","/n_joinForm","/b_joinForm","/b_join","/n_join").permitAll()
-					.requestMatchers("/css/**", "/image/**").permitAll()
+					.requestMatchers("/css/**", "/image/**", "favicon.io").permitAll()
 					.requestMatchers("/admin").hasRole("ADMIN")
 					.requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
 					.anyRequest().authenticated()
