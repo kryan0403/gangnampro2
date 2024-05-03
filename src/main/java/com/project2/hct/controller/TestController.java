@@ -25,12 +25,10 @@ public class TestController {
 		return "redirect:main";
 	}
 	
-	
-	@RequestMapping("/mainPage")
-	public String init2() {
-		return "redirect:healthclass/All/1";
+	@RequestMapping("main")
+	public String main() {
+		return "redirect:main";
 	}
-
 	@RequestMapping("/MainboardList")
 	@ResponseBody
 	public ResponseEntity<Map<String,Object>> noticemain() {

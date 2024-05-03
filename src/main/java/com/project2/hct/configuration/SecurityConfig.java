@@ -43,7 +43,7 @@ public class SecurityConfig {
 		http
 			.formLogin((auth)->auth.loginPage("/loginForm")
 					.loginProcessingUrl("/login")
-					.defaultSuccessUrl("/main")
+					.defaultSuccessUrl("/main", true)
 					.usernameParameter("memId")
 					.passwordParameter("memPw")
 		);
