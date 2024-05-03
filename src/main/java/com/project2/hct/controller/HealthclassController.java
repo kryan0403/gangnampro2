@@ -37,13 +37,13 @@ public class HealthclassController {
 	String realpath = "C:\\Users/user/git/gangnampro2/src/main/resources/static/image";
 
 
-	@RequestMapping("/healthclass")
+	@RequestMapping("healthclass")
 	public String lecture() {
 		return "redirect:healthclass/All/1";
 	}
 	
 	//리스트 보여주기
-	@RequestMapping("/healthclass/{listCategory}/{pageNum}")
+	@RequestMapping("healthclass/{listCategory}/{pageNum}")
 	public String select(@PathVariable("listCategory") String listCategory,
 			@PathVariable("pageNum") String pageNum,
 			Model model) {
@@ -102,7 +102,7 @@ public class HealthclassController {
 		return "healthclass/writeSuccess.html";
 	}
 	
-	@RequestMapping(value="/healthclass/search", method=RequestMethod.GET)
+	@RequestMapping(value="healthclass/search", method=RequestMethod.GET)
 	public String search(Model model, HttpServletRequest hsr) {
 		String searchCategory = hsr.getParameter("searchCategory");
 		String listCategory = hsr.getParameter("listCategory");
@@ -132,7 +132,7 @@ public class HealthclassController {
 		return "/healthclass/search.html";
 	}
 	
-	@RequestMapping("/healthclass/detail/{clNo}")
+	@RequestMapping("healthclass/detail/{clNo}")
 	public String detail(@PathVariable("clNo") String clNo, Model model) {
 		clNo += "(";
 		int idx = clNo.indexOf("(");

@@ -13,14 +13,34 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
+</head>
+<body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
+	<h4 th:value="${id}"></h4>
+	<div style="padding:15px 25px; background-color: skyblue;">
+		<div class='slider-div' id="LiveList">
+			<div th:each="list :${livelist}">
+				<a th:href="@{/healthclass/detail/{clNo}(clNo=${list.liveClno})}">
+	  			<image th:src="@{image/thumbnail/}+${list.liveClno} + @{_}+${list.liveThumbnail}" style="width:200px; height:200px;"
+	  			alt="저장된 이미지 없음"/>
+	  			</a>
+	  			[[${list.liveName}]]
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div id="MainboardList" class="MainboardList"></div>
+		<div class="ran">
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
+</body>
 <script type="text/javascript">
-
-$(document).ready(function() {
+window.onload = function() {
 	MainboardList();
-});
-
-
+}
 $(function(){
 	$('.slider-div').not('.slick-initialized').slick({
 		slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
@@ -76,26 +96,4 @@ function MainboardList(){
 }
 
 </script>
-</head>
-<body>
-<div class="wrapper">
-<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
-	<h4 th:value="${id}"></h4>
-	<div style="padding:15px 25px; background-color: skyblue;">
-		<div class='slider-div' id="LiveList">
-			<div th:each="list :${livelist}">
-				<a th:href="@{/healthclass/detail/{clNo}(clNo=${list.liveClno})}">
-	  			<image src="[[${list.liveThumbnail}]]" style="width:200px; height:200px;"/>
-	  			</a>[[${list.liveName}]]
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div id="MainboardList" class="MainboardList"></div>
-		<div class="ran">
-		</div>
-	</div>
-</div>
-<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
-</body>
 </html>
