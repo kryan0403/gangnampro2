@@ -1,6 +1,6 @@
 package com.project2.hct.controller.member;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project2.hct.dto.JoinDTO;
 import com.project2.hct.entity.Member;
+import com.project2.hct.entity.Myclass;
+import com.project2.hct.entity.Wishlist;
 import com.project2.hct.service.MypageService;
 
 @Controller
@@ -28,17 +30,69 @@ public class MypageController {
 	private MypageService mypageService;
 	
 	// 마이페이지로 이동
-	@GetMapping("MyPage")
+	@GetMapping("mypageL")
 	public String mypage(Authentication auth, Model model) {
 		
 		if(auth != null) {
 			String id = auth.getName();
 			model.addAttribute("memId",id);
-			return "member/mypage";
+			return "mypage/mypage";
 		}else {
-			return "redirect:mainP";
+			return "redirect:/main";
 		}
 		
+	}
+	
+	// 수강목록 보기
+	@GetMapping("classListP")
+	public String classListP(Authentication auth, Model model) {
+		
+		if(auth != null) {
+			String id = auth.getName();
+			model.addAttribute("memId",id);
+			return "mypage/classListPage";
+		}else {
+			return "redirect:/main";
+		}
+	}
+	
+	// 관심목록 보기
+	@GetMapping("wishListP")
+	public String wishListP(Authentication auth, Model model) {
+		
+		if(auth != null) {
+			String id = auth.getName();
+			model.addAttribute("memId",id);
+			return "mypage/wishListPage";
+		}else {
+			return "redirect:/main";
+		}
+	}
+	
+	// 내글목록 보기
+	@GetMapping("writeListP")
+	public String writeListP(Authentication auth, Model model) {
+		
+		if(auth != null) {
+			String id = auth.getName();
+			model.addAttribute("memId",id);
+			return "mypage/writeListPage";
+		}else {
+			return "redirect:/main";
+		}
+	}
+	
+	// 내강의목록 보기
+	@GetMapping("myClassP")
+	public String myClassP(Authentication auth, Model model) {
+		
+		if(auth != null) {
+			String id = auth.getName();
+			model.addAttribute("memId",id);
+			return "mypage/myClassPage";
+		}else {
+			return "redirect:/main";
+		}
 	}
 	
 	// 수정폼 불러오기
@@ -62,7 +116,7 @@ public class MypageController {
 		System.out.println("수정");
 		
 		if ( auth == null) {
-			return "redirect:member/mypage";
+			return "redirect:mypage";
 		}
 		
 		String id = auth.getName();
@@ -75,11 +129,11 @@ public class MypageController {
 
 		if (!isPasswordMatch) {   // 비번 불일치시
 			System.out.println("불일치");
-			return "redirect:mainP";
+			return "redirect:/main";
 		} else {										// 비번 일치시			
 			System.out.println("일치");
 			mypageService.update(joinDTO);
-			return "redirect:member/mypage";
+			return "redirect:mypage";
 		}
 		
 	}
@@ -92,9 +146,9 @@ public class MypageController {
 		if (auth != null) {
 			String id = auth.getName();
 			model.addAttribute("memId",id);
-			return "member/deleteMember";
+			return "mypage/deleteMember";
 		}else {
-			return "redirect:mainP";
+			return "redirect:main";
 		}
 	}
 	
@@ -104,7 +158,7 @@ public class MypageController {
 		System.out.println("탈퇴");
 		
 		if ( auth == null) {
-			return "redirect:mainP";
+			return "redirect:/main";
 		}
 		
 		String id = auth.getName();
@@ -116,12 +170,52 @@ public class MypageController {
 
 		if (!isPasswordMatch) {   // 비번 불일치시
 			System.out.println("불일치");
-			return "member/deleteMember";
+			return "mypage/deleteMember";
 		} else {										// 비번 일치시			
 			System.out.println("일치");
 			mypageService.deleteMember(id);	// delete SQL문 실행
-			return "redirect:logout";
+			return "redirect:/logout";
 		}
+	}
+	
+	// 수강 목록
+	@GetMapping("getClassList/{memId}")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> getClassList(@PathVariable("memId") String memId){
+		
+		List<Myclass> list = mypageService.getList(memId);
+		
+		Map map = new HashMap<>();
+		map.put("list", list);
+
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	// 수강 취소
+	@GetMapping("deleteClass/{no}")
+	@ResponseBody
+	public void deleteClass(@PathVariable("no") long no) {
+		mypageService.deleteClass(no);
+	}
+	
+	// 관심 목록
+	@GetMapping("getWishList/{memId}")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> getWishList(@PathVariable("memId") String memId){
+		
+		List<Wishlist> list = mypageService.getWishList(memId);
+		
+		Map map = new HashMap<>();
+		map.put("list", list);
+
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	// 관심 삭제
+	@GetMapping("deleteWish/{no}")
+	@ResponseBody
+	public void deleteWish(@PathVariable("no") long no) {
+		mypageService.deleteWish(no);
 	}
 
 }

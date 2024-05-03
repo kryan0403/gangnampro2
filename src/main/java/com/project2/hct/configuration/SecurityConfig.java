@@ -47,7 +47,10 @@ public class SecurityConfig {
 					.usernameParameter("memId")
 					.passwordParameter("memPw")
 		);
-		
+		// ROLE 접근 제한 처리
+				http.exceptionHandling((except) -> except
+						.accessDeniedPage("/accessDenied"));
+				
 		// 로그아웃
 		http
 				.logout((auth)-> auth.logoutUrl("/logout")

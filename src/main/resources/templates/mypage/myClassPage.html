@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyPage</title>
+<link rel="stylesheet" href="../css/header.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script th:inline="javascript">
+var memId = /*[[${memId}]]*/ null;
+</script>
+<script>
+//contextPath 길어서 변수 할당 
+var contextPath = "${pageContext.request.contextPath}";
+
+$(document).ready(function(){
+	getMyClass(memId);
+});
+
+function getMyClass(memId){
+	$.ajax({
+		type: "GET",
+		url: "getMyClass/"+memId,
+		success: function(result){
+			
+		}
+	});
+}
+
+</script>
+</head>
+<body>
+<div class="wrapper">
+<th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
+
+<div>
+	<a th:href="@{/mypageL}">내정보</a>
+	<a th:href="@{/classListP}">수강목록</a>
+	<a th:href="@{/wishListP}">관심목록</a>
+	<a th:href="@{/writeListP}">내가쓴글</a>
+</div>
+<a sec:authorize="hasRole('ROLE_BUSINESS')" th:href="@{/myClassP}">강의목록</a>
+<hr>
+
+<span>회원ID : [[${memId}]]</span>
+
+개설한 강의 목록
+</div>
+<th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
+</body>
+</html>

@@ -1,5 +1,5 @@
 package com.project2.hct.service;
-
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.project2.hct.dto.JoinDTO;
 import com.project2.hct.entity.Member;
+import com.project2.hct.entity.Myclass;
+import com.project2.hct.entity.Wishlist;
 import com.project2.hct.repository.MemberRepository;
-import com.project2.hct.repository.MypageMyrepo;
+import com.project2.hct.repository.MypageMycrepo;
 import com.project2.hct.repository.MypageWishrepo;
 
 @Service
@@ -17,7 +19,7 @@ public class MypageService {
 	@Autowired
 	private MemberRepository memberRepo;
 	@Autowired
-	private MypageMyrepo mypageMyrepo;
+	private MypageMycrepo mypageMycrepo;
 	@Autowired
 	private MypageWishrepo mypageWishrepo;
 
@@ -50,10 +52,27 @@ public class MypageService {
 		if(opMem.isPresent()) {
 			Member member = opMem.get();
 			// 탈퇴만 설정
-			member.setMemActive("N");
+			member.setMemActive("n");
 			// update
 			memberRepo.save(member);
+		}else {
 		}
+	}
+
+	public List<Myclass> getList(String memId) {
+		return mypageMycrepo.findAllBymycMemid(memId);
+	}
+
+	public void deleteClass(long no) {
+		mypageMycrepo.deleteById(no);
+	}
+
+	public List<Wishlist> getWishList(String memId) {
+		return mypageWishrepo.findAllBywishMemid(memId);
+	}
+
+	public void deleteWish(long no) {
+		mypageWishrepo.deleteById(no);
 	}
 
 }

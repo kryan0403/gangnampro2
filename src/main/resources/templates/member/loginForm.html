@@ -8,15 +8,21 @@
 <body>
 <div class="wrapper">
 <th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
-	loginForm page<hr>
+	loginForm page
+<hr>
 	<form action="/login" method="post" name="loginForm">
-	<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
-		<input type="text" id="memId" name="memId" placeholder="memId">
-		<input type="text" id="memPw" name="memPw" placeholder="password">
-		
+		<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
+		<input type="text" id="memId" name="memId" placeholder="memId" required>
+		<input type="password" id="memPw" name="memPw" placeholder="password" required>
 		<input type="submit" value="로그인">
 	</form>
+	<input type="button" value="회원가입" onclick = "joinForm()">
 </div>
 <th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>
 </body>
+<script>
+function joinForm(){
+	location.href="joinForm";
+}
+</script>
 </html>

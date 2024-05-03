@@ -2,14 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyPage</title>
 <link rel="stylesheet" href="../css/header.css">
-<title>deleteMember</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 <div class="wrapper">
 <th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
-<div class="login" align="center">
+
+<div align="center">
 <form method='post' action="/deleteMember.do">
 	<input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 	<table>
@@ -24,7 +26,7 @@
 			<td colspan='2' style="text-align: center;"><input type="submit" value="탈퇴"></td>
 		</tr>
 	</table>
-</form>	
+</form>
 </div>
 </div>
 <th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>

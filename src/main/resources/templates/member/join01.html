@@ -8,29 +8,31 @@
 <body>
 <div class="wrapper">
 <th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
-	<div style="float: left; width: 50%" align="center">
-		<a href="n_joinForm">
-		<table>
-			<tr>
-				<td><img></td>	<!--이미지 넣기 (그냥 일반 회원 이미지)  -->
-			</tr>
-			<tr>
-				<td>일반 회원 등록</td>
-			</tr>
-		</table>
-		</a>	
-	</div>
-	<div style="float: left; width: 50%" align="center">
-		<a href="b_joinForm">
-		<table>
-			<tr>
-				<td><img></td>
-			</tr>
-			<tr>
-				<td>사업자 회원 등록</td>
-			</tr>
-		</table>
-		</a>
+	<div>
+		<div style="float: left; width: 50%" align="center">
+			<a th:href="@{/n_joinForm}">
+			<table>
+				<tr>
+					<td><img></td>	<!--이미지 넣기 (그냥 일반 회원 이미지)  -->
+				</tr>
+				<tr>
+					<td>일반 회원 등록</td>
+				</tr>
+			</table>
+			</a>	
+		</div>
+		<div style="float: left; width: 50%" align="center">
+			<a th:href="@{/b_joinForm}">
+			<table>
+				<tr>
+					<td><img></td>
+				</tr>
+				<tr>
+					<td>사업자 회원 등록</td>
+				</tr>
+			</table>
+			</a>
+		</div>
 	</div>
 </div>
 <th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>

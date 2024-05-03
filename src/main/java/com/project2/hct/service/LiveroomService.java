@@ -21,6 +21,10 @@ public class LiveroomService {
 		//모델맵퍼 -> dto를 entity로 변환
 		liveroomrepository.save(mm.map(liveroomDTO, Liveroom.class));
 	}
+	
+	public void delete(String live_clno) {	
+		liveroomrepository.delete(live_clno);
+	}
 
 	public List<Liveroom> getList() {
 		// TODO Auto-generated method stub

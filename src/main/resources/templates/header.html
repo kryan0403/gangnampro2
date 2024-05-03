@@ -3,9 +3,9 @@
 <header class="header" th:fragment="header">
 	<div>
 		<input type="button" onclick = "location.href = '/loginForm'" value="로그인" sec:authorize="isAnonymous()" />
-		<input type="button" onclick = "location.href = '/Join'" value="회원가입" sec:authorize="isAnonymous()" />
+		<input type="button" onclick = "location.href = '/JoinForm'" value="회원가입" sec:authorize="isAnonymous()" />
 		<input type="button" onclick = "location.href = '/logout'" value="로그아웃" sec:authorize="isAuthenticated()" />
-		<input type="button" onclick = "location.href = '/MyPage'" value="마이페이지" sec:authorize="isAuthenticated()" />
+		<input type="button" onclick = "location.href = '/mypageL'" value="마이페이지" sec:authorize="isAuthenticated()" />
 	</div>
 	
 	<div> 

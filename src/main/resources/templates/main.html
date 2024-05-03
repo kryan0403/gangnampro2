@@ -28,11 +28,13 @@
 	  			[[${list.liveName}]]
 			</div>
 		</div>
+		<div th:if="${livelist.size == 0}" >
+			<h3 style="text-align: center;">현재 진행중인 강의가 없습니다.</h3>
+		</div>
 	</div>
 	<div class="container">
 		<div id="MainboardList" class="MainboardList"></div>
-		<div class="ran">
-		</div>
+		<div class="ran"></div>
 	</div>
 </div>
 <th:block layout:fragment="footer" th:insert="~{@{/footer}}"></th:block>

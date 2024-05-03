@@ -8,7 +8,7 @@
 <body>
 <div class="wrapper">
 <th:block layout:fragment="header" th:insert="~{@{/header}}"></th:block>
-	일반 회원 등록
+		일반 회원 등록
 	<hr>
 	<form action="/n_join" method="post" name="n_joinForm">
 		<input type="hidden" name="_csrf" th:value="${_csrf?.token}">

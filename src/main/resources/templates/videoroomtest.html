@@ -57,6 +57,7 @@
         <div class="page-header">
           <h1>화상강의
             <button class="btn btn-default" autocomplete="off" onClick="window.close()">강의 나가기</button>
+            <button class="btn btn-default" autocomplete="off" th:onClick="'location.href=\''+ @{/delete/{liveclno}(liveclno=${liveclno})} + '\''">강의 끝내기</button>
           </h1>
         </div>
         <div class="container hide" id="videojoin">
@@ -65,7 +66,7 @@
               <div id="registernow">
                 <span class="label label-info" id="room"></span>
                 <div class="input-group margin-bottom-md " style="width: 100% !important;">
-                  <input autocomplete="off" class="form-control" type="text" th:value="${liveClno}" placeholder="Room Name" id="roomname" readonly/>
+                  <input autocomplete="off" class="form-control" type="text" th:value="${liveclno}" placeholder="Room Name" id="roomname" readonly/>
                 </div>
                 <span class="label label-info" id="you"></span>
                 <div class="input-group margin-bottom-md ">
