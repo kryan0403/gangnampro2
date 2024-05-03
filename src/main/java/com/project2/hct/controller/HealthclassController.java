@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.project2.hct.dto.HealthclassDTO;
 import com.project2.hct.dto.PagingPgm;
 import com.project2.hct.service.ClassnoticeService;
 import com.project2.hct.service.HealthclassService;
+import com.project2.hct.service.MypageService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,9 @@ public class HealthclassController {
 	private HealthclassService hs;
 	@Autowired
 	private ClassnoticeService cs;
+	
+	@Autowired
+	private MypageService ms;
 	String realpath = "C:\\Users/user/git/gangnampro2/src/main/resources/static/image";
 
 
@@ -75,10 +80,12 @@ public class HealthclassController {
 	@RequestMapping("healthclass/write")
 	public String write(@RequestParam("profile") MultipartFile profile,
 			@RequestParam("thumbnail") MultipartFile thumbnail,
-			HealthclassDTO healthclassDTO, HttpServletRequest hsr) throws IOException {
+			HealthclassDTO healthclassDTO, HttpServletRequest hsr, Authentication auth) throws IOException {
 		
 		healthclassDTO.setClStart(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
 		// 최신no를 가져온다음(이때는 두개다 null상태), 선택된 파일이 있으면 update해준다
+		healthclassDTO.setClMemid(auth.getName());
+		healthclassDTO.setClMemname(ms.getMember(auth.getName()).getMemName());
 		hs.save(healthclassDTO);
 		Integer clNo = hs.getLastClNo();
 		healthclassDTO = hs.findByClNo(clNo.toString());
@@ -163,7 +170,7 @@ public class HealthclassController {
 	
 	@RequestMapping("healthclass/update/{clNo}")
 	public String update(@PathVariable("clNo") String clNo, @RequestParam("profile") MultipartFile profile,
-			@RequestParam("thumbnail") MultipartFile thumbnail,
+			@RequestParam("thumbnail") MultipartFile thumbnail, Authentication auth,
 			HealthclassDTO afterDTO,
 			HttpServletRequest hsr) throws IOException {
 		
@@ -171,6 +178,8 @@ public class HealthclassController {
 		int idx = clNo.indexOf("(");
 		clNo = clNo.substring(0,idx);
 		HealthclassDTO beforeDTO = hs.findByClNo(clNo);
+		afterDTO.setClMemid(auth.getName());
+		afterDTO.setClMemname(ms.getMember(auth.getName()).getMemName());
 		afterDTO.setClNo(Long.parseLong(clNo));
 		afterDTO.setClStart(hsr.getParameter("cl_start1")+":"+hsr.getParameter("cl_start2"));
 		

@@ -58,25 +58,25 @@
 <input type="button" value="관심등록" sec:authorize="isAuthenticated()" 
 									/>
 <input type="button" value="삭제"    th:onclick="'location.href=\''+ @{/healthclass/delete/{cl_no}(cl_no=${healthclass.clNo})} + '\''" 
-									/>
+									sec:authorize="isAuthenticated()" />
 <input type="button" value="수정"    th:onclick="'location.href=\''+ @{/healthclass/updateform/{cl_no}(cl_no=${healthclass.clNo})} + '\''" 
-									/>
+									sec:authorize="isAuthenticated()" />
 <input type="button" value="목록으로" th:onclick="'location.href=\''+ @{/healthclass/All/1} + '\''" />
 </div>
-<form action="/videoroomtest" method="post" target="_blank">
+<form action="/videoroomtest" method="post" target="_blank" sec:authorize="isAuthenticated()">
 <input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 	<input type="hidden" name="liveClno" th:value="${healthclass.clNo}">
 	<input type="hidden" name="liveName" th:value="${healthclass.clName}">
 	<input type="hidden" name="liveThumbnail" th:value="${healthclass.clThumbnail}">
 	<input type="submit" value="강의시작">
 </form>
-<form action="/videoroomsstu" method="post" target="_blank">
+<form action="/videoroomsstu" method="post" target="_blank" sec:authorize="isAuthenticated()">
 <input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 	<input type="hidden" name="liveClno" th:value="${healthclass.clNo}">
 	<input type="submit" value="강의듣기">
 </form>
 <div>
-<form action="/classnotice/write.do" method="post">
+<form action="/classnotice/write.do" method="post" sec:authorize="isAuthenticated()">
 <input type="hidden" name="_csrf" th:value="${_csrf?.token}">
 <a>공지작성</a><input type="textarea" style="width: 700px; height: 80px;" name="clnContent" id="clnContent" />
 <input type="hidden" name="clnClno" th:value="${healthclass.clNo}"/>
