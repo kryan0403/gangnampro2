@@ -22,13 +22,13 @@ public class LiveroomController {
 	@RequestMapping("/videoroomtest")
 	public String videoroomtest(LiveroomDTO liveroomdto,HttpServletRequest hsr, Model model) throws IOException{
 		liveroomservice.save(liveroomdto);
-		String liveclno = hsr.getParameter("liveclno");
+		String liveclno = hsr.getParameter("liveClno");
 		model.addAttribute("liveclno", liveclno);
 		return "videoroomtest";
 	}
 	@RequestMapping("/videoroomsstu")
 	public String videoroomstu(HttpServletRequest hsr, Model model) {
-		String liveclno = hsr.getParameter("liveclno");
+		String liveclno = hsr.getParameter("liveClno");
 		model.addAttribute("liveclno", liveclno);
 		return "videoroomtest";
 	}
